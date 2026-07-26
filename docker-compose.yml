@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  luxury-restaurant:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: luxury-restaurant-app
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+    # If you prefer to expose it only to a cloudflared container network, you can remove the ports mapping
+    # and instead add both this service and cloudflared to a custom network.
