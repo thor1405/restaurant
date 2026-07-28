@@ -20,7 +20,7 @@ export async function POST(request: Request) {
         name: 'admin_token',
         value: token,
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: false, // Set to false to allow local HTTP testing on Pi
         sameSite: 'lax',
         path: '/',
         maxAge: 60 * 60 * 24, // 1 day
@@ -31,6 +31,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: false, message: 'Invalid credentials' }, { status: 401 });
   } catch (error) {
-    return NextResponse.json({ success: false, message: 'Internal server error' }, { status: 500 });
+    console.error("Login error:", error);
+    return NextResponse.json({ success: false, message: error instanceof Error ? error.message : 'Internal server error' }, { status: 500 });
   }
 }
