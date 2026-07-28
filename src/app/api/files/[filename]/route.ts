@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { readFile } from "fs/promises";
 import path from "path";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request, { params }: { params: Promise<{ filename: string }> }) {
   try {
     const { filename } = await params;
@@ -21,10 +23,11 @@ export async function GET(request: Request, { params }: { params: Promise<{ file
         headers: {
           "Content-Type": contentType,
           "Cache-Control": "public, max-age=31536000",
+          "X-Debug-Path": filepath,
         },
       });
-    } catch (fsError) {
-      return new NextResponse("File not found on disk", { status: 404 });
+    } catch (fsError: any) {
+      return new NextResponse("File not found on disk: " + filepath + " Error: " + fsError.message, { status: 404 });
     }
   } catch (error) {
     return new NextResponse("Internal Server Error", { status: 500 });

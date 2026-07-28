@@ -14,8 +14,8 @@ function centerAspectCrop(
   return centerCrop(
     makeAspectCrop(
       {
-        unit: '%',
-        width: 90,
+        unit: 'px',
+        width: Math.min(mediaWidth, mediaHeight) * 0.9,
       },
       aspect,
       mediaWidth,
@@ -292,7 +292,7 @@ export default function GalleryManager() {
             <div className="p-6 flex justify-center max-h-[60vh] overflow-y-auto bg-black/50">
               <ReactCrop
                 crop={crop}
-                onChange={(_, percentCrop) => setCrop(percentCrop)}
+                onChange={(c) => setCrop(c)}
                 aspect={1}
                 className="max-w-full"
               >
