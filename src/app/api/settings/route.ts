@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
 import Settings from "@/models/Settings";
 import { verifyJwt } from "@/lib/auth";
+import { revalidatePath } from "next/cache";
+
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
@@ -35,6 +38,8 @@ export async function PUT(request: Request) {
       upsert: true,
       runValidators: true,
     });
+
+    revalidatePath("/", "layout");
 
     return NextResponse.json({ success: true, data: settings });
   } catch (error) {

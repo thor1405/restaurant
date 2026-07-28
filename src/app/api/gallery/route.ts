@@ -3,6 +3,8 @@ import dbConnect from "@/lib/db";
 import Gallery from "@/models/Gallery";
 import { verifyJwt } from "@/lib/auth";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     await dbConnect();
