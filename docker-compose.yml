@@ -12,5 +12,23 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3001
-    # If you prefer to expose it only to a cloudflared container network, you can remove the ports mapping
-    # and instead add both this service and cloudflared to a custom network.
+      - MONGODB_URI=mongodb://mongo:27017/luxury-restaurant
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=admin123
+      - JWT_SECRET=change_this_to_a_secure_random_string_in_production
+    depends_on:
+      - mongo
+    volumes:
+      - public_uploads:/app/public/uploads
+
+  mongo:
+    image: mongo:latest
+    container_name: luxury-restaurant-mongo
+    restart: unless-stopped
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:
+  public_uploads:
+
