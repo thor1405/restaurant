@@ -1,8 +1,10 @@
 import Link from "next/link";
 import dbConnect from "@/lib/db";
 import Settings from "@/models/Settings";
+import { unstable_noStore as noStore } from "next/cache";
 
 export default async function Footer() {
+  noStore();
   let settings;
   try {
     await dbConnect();
