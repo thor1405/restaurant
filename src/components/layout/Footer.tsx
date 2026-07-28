@@ -1,8 +1,31 @@
 import Link from "next/link";
+import dbConnect from "@/lib/db";
+import Settings from "@/models/Settings";
 
-export default function Footer() {
+export default async function Footer() {
+  let settings;
+  try {
+    await dbConnect();
+    settings = await Settings.findOne();
+    if (!settings) {
+      settings = await Settings.create({});
+    }
+  } catch (error) {
+    console.error("Failed to fetch footer settings:", error);
+    // fallback data
+    settings = {
+      phoneNumber: "+33 1 23 45 67 89",
+      email: "contact@letoilepatisserie.com",
+      addressLine1: "123 Luxury Avenue",
+      addressLine2: "Paris, 75008, France",
+      igLink: "#",
+      fbLink: "#",
+      xLink: "#"
+    };
+  }
+
   return (
-    <footer className="bg-[#0a0a0a] border-t border-white/10 pt-20 pb-10 text-white">
+    <footer className="bg-[#0a0a0a] border-t border-white/10 pt-20 pb-10 text-white mt-auto">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
           {/* Brand */}
@@ -11,16 +34,16 @@ export default function Footer() {
               L&apos;ÉTOILE
             </h3>
             <p className="text-white/60 mb-6 font-light leading-relaxed">
-              Experience the pinnacle of culinary excellence, where every dish tells a story of passion, precision, and artistry.
+              Experience the pinnacle of artisanal baking, where every creation tells a story of passion, precision, and artistry.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors text-xs font-medium">
+              <a href={settings.igLink} className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors text-xs font-medium">
                 IG
               </a>
-              <a href="#" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors text-xs font-medium">
+              <a href={settings.fbLink} className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors text-xs font-medium">
                 FB
               </a>
-              <a href="#" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors text-xs font-medium">
+              <a href={settings.xLink} className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors text-xs font-medium">
                 X
               </a>
             </div>
@@ -47,16 +70,16 @@ export default function Footer() {
           <div className="flex flex-col">
             <h4 className="font-heading text-lg tracking-widest mb-6">CONTACT</h4>
             <ul className="flex flex-col gap-4 text-white/60 font-light">
-              <li>123 Luxury Avenue</li>
-              <li>Paris, 75008, France</li>
+              <li>{settings.addressLine1}</li>
+              <li>{settings.addressLine2}</li>
               <li className="mt-2">
-                <a href="tel:+33123456789" className="hover:text-(--color-accent) transition-colors">
-                  +33 1 23 45 67 89
+                <a href={`tel:${settings.phoneNumber.replace(/\s+/g, '')}`} className="hover:text-(--color-accent) transition-colors">
+                  {settings.phoneNumber}
                 </a>
               </li>
               <li>
-                <a href="mailto:reservations@letoile.com" className="hover:text-(--color-accent) transition-colors">
-                  reservations@letoile.com
+                <a href={`mailto:${settings.email}`} className="hover:text-(--color-accent) transition-colors">
+                  {settings.email}
                 </a>
               </li>
             </ul>
@@ -66,7 +89,7 @@ export default function Footer() {
           <div className="flex flex-col">
             <h4 className="font-heading text-lg tracking-widest mb-6">NEWSLETTER</h4>
             <p className="text-white/60 font-light mb-4">
-              Subscribe to receive updates on seasonal menus and exclusive events.
+              Subscribe to receive updates on seasonal creations and exclusive events.
             </p>
             <form className="flex flex-col gap-3">
               <input
@@ -76,7 +99,7 @@ export default function Footer() {
                 required
               />
               <button
-                type="submit"
+                type="button"
                 className="bg-(--color-accent) text-black px-4 py-3 font-medium uppercase tracking-widest hover:bg-[#d4b676] transition-colors"
               >
                 Subscribe
@@ -87,7 +110,7 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-white/40 font-light">
-          <p>&copy; {new Date().getFullYear()} L&apos;Étoile Restaurant. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} L&apos;Étoile Pâtisserie. All rights reserved.</p>
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>

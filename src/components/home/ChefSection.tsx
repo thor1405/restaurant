@@ -35,15 +35,15 @@ export default function ChefSection() {
               The Visionary
             </p>
             <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl text-white mb-8 leading-tight">
-              Meet Executive <br />
+              Meet Head Pastry <br />
               Chef <span className="italic font-light">Antoine</span>
             </h2>
             <div className="h-[1px] w-24 bg-(--color-accent) mb-8 mx-auto lg:mx-0" />
             <p className="text-white/70 font-light leading-relaxed mb-6 text-lg">
-              With over two decades of culinary mastery acquired in the world&apos;s most prestigious kitchens, Chef Antoine brings a unique philosophy to L&apos;Étoile.
+              With over two decades of culinary mastery acquired in the world&apos;s most prestigious patisseries, Chef Antoine brings a unique philosophy to L&apos;Étoile Pâtisserie.
             </p>
             <p className="text-white/70 font-light leading-relaxed mb-10 text-lg">
-              His approach blends classic French techniques with avant-garde innovation, resulting in dishes that respect tradition while daring to redefine the modern dining experience.
+              His approach blends classic French pastry techniques with avant-garde innovation, resulting in creations that respect tradition while daring to redefine the modern bakery experience.
             </p>
             <div className="font-heading text-3xl text-white/50 italic">
               "Antoine"

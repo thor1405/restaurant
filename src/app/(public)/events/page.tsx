@@ -9,24 +9,24 @@ import Link from "next/link";
 const EVENTS = [
   {
     id: 1,
-    title: "Grand Cru Wine Tasting",
-    date: "Every Thursday | 6:00 PM",
-    description: "Join our head sommelier for an exclusive journey through the vineyards of Burgundy and Bordeaux. Includes paired canapés.",
-    image: "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&q=80&w=800",
+    title: "Viennoiserie Masterclass",
+    date: "Every Thursday | 10:00 AM",
+    description: "Join our head pastry chef for an exclusive journey through the art of lamination. Learn the secrets behind our perfect croissants.",
+    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=800",
   },
   {
     id: 2,
-    title: "Jazz & Champagne Nights",
-    date: "Friday & Saturday | 8:00 PM",
-    description: "Experience the soulful sounds of live jazz while enjoying our curated selection of vintage Champagnes and a bespoke tasting menu.",
+    title: "Afternoon Tea & Champagne",
+    date: "Friday & Saturday | 3:00 PM",
+    description: "Experience the soulful sounds of live jazz while enjoying our curated selection of delicate petit fours, scones, and vintage Champagnes.",
     image: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&q=80&w=800",
   },
   {
     id: 3,
-    title: "Seasonal Truffle Dinner",
+    title: "Artisanal Bread Workshop",
     date: "November 15 - 30",
-    description: "A celebration of the Alba white truffle. A five-course menu highlighting the earthy aroma of this rare culinary treasure.",
-    image: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&q=80&w=800",
+    description: "A celebration of sourdough and ancient grains. A hands-on workshop highlighting the earthy aroma of natural fermentation.",
+    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=800",
   }
 ];
 

@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import { Plus, Edit, Trash2, X, Image as ImageIcon } from "lucide-react";
-import Image from "next/image";
+import ReactCrop, { type Crop, centerCrop, makeAspectCrop } from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
 
 type MenuItem = {
   _id: string;
@@ -13,6 +14,26 @@ type MenuItem = {
   category: string;
   image: string;
 };
+
+function centerAspectCrop(
+  mediaWidth: number,
+  mediaHeight: number,
+  aspect: number,
+) {
+  return centerCrop(
+    makeAspectCrop(
+      {
+        unit: '%',
+        width: 90,
+      },
+      aspect,
+      mediaWidth,
+      mediaHeight,
+    ),
+    mediaWidth,
+    mediaHeight,
+  )
+}
 
 export default function MenuManager() {
   const [items, setItems] = useState<MenuItem[]>([]);
@@ -24,10 +45,16 @@ export default function MenuManager() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("Starters");
+  const [category, setCategory] = useState("Viennoiserie");
   const [image, setImage] = useState("");
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Cropper State
+  const [imgSrc, setImgSrc] = useState("");
+  const [crop, setCrop] = useState<Crop>();
+  const [showCropper, setShowCropper] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   const fetchItems = async () => {
     try {
@@ -60,9 +87,11 @@ export default function MenuManager() {
       setName("");
       setDescription("");
       setPrice("");
-      setCategory("Starters");
+      setCategory("Viennoiserie");
       setImage("");
     }
+    setImgSrc("");
+    setShowCropper(false);
     setIsModalOpen(true);
   };
 
@@ -71,13 +100,74 @@ export default function MenuManager() {
     setEditingItem(null);
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setCrop(undefined); // Makes crop preview update between images.
+      const reader = new FileReader();
+      reader.addEventListener('load', () =>
+        setImgSrc(reader.result?.toString() || '')
+      );
+      reader.readAsDataURL(e.target.files[0]);
+      setShowCropper(true);
+    }
+    // reset input so the same file can be selected again
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const onImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const { width, height } = e.currentTarget;
+    setCrop(centerAspectCrop(width, height, 1));
+  };
+
+  const getCroppedImg = async () => {
+    if (!imgRef.current || !crop) return;
+    
+    const canvas = document.createElement('canvas');
+    const scaleX = imgRef.current.naturalWidth / imgRef.current.width;
+    const scaleY = imgRef.current.naturalHeight / imgRef.current.height;
+    
+    const pixelRatio = window.devicePixelRatio;
+    
+    canvas.width = Math.floor(crop.width * scaleX * pixelRatio);
+    canvas.height = Math.floor(crop.height * scaleY * pixelRatio);
+    
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
+    ctx.scale(pixelRatio, pixelRatio);
+    ctx.imageSmoothingQuality = 'high';
+    
+    const cropX = crop.x * scaleX;
+    const cropY = crop.y * scaleY;
+    const cropWidth = crop.width * scaleX;
+    const cropHeight = crop.height * scaleY;
+
+    ctx.drawImage(
+      imgRef.current,
+      cropX,
+      cropY,
+      cropWidth,
+      cropHeight,
+      0,
+      0,
+      cropWidth,
+      cropHeight
+    );
+
+    return new Promise<Blob>((resolve) => {
+      canvas.toBlob((blob) => {
+        if (blob) resolve(blob);
+      }, 'image/jpeg', 0.95);
+    });
+  };
+
+  const handleUploadCrop = async () => {
+    const croppedBlob = await getCroppedImg();
+    if (!croppedBlob) return;
 
     setUploading(true);
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", croppedBlob, "cropped.jpg");
 
     try {
       const res = await fetch("/api/upload", {
@@ -87,6 +177,8 @@ export default function MenuManager() {
       const data = await res.json();
       if (data.success) {
         setImage(data.imageUrl);
+        setShowCropper(false);
+        setImgSrc("");
       } else {
         alert("Upload failed");
       }
@@ -166,7 +258,8 @@ export default function MenuManager() {
                     <div className="flex items-center gap-4">
                       {item.image ? (
                         <div className="w-12 h-12 relative rounded overflow-hidden">
-                          <Image src={item.image} alt={item.name} fill className="object-cover" />
+                          {/* Use standard img tag to bypass Next.js image optimization bug on local files */}
+                          <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                         </div>
                       ) : (
                         <div className="w-12 h-12 bg-white/10 rounded flex items-center justify-center">
@@ -211,8 +304,8 @@ export default function MenuManager() {
         </div>
       )}
 
-      {/* Modal */}
-      {isModalOpen && (
+      {/* Main Form Modal */}
+      {isModalOpen && !showCropper && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
           <div className="bg-[#1C1C1C] border border-white/10 rounded-lg w-full max-w-xl max-h-[90vh] overflow-y-auto">
             <div className="sticky top-0 bg-[#1C1C1C] border-b border-white/10 p-4 flex justify-between items-center z-10">
@@ -229,8 +322,8 @@ export default function MenuManager() {
                   <label className="block text-white/70 text-xs tracking-widest uppercase mb-2">Image</label>
                   <div className="flex items-center gap-4">
                     {image && (
-                      <div className="w-24 h-24 relative rounded overflow-hidden border border-white/20">
-                        <Image src={image} alt="Preview" fill className="object-cover" />
+                      <div className="w-24 h-24 relative rounded overflow-hidden border border-white/20 flex-shrink-0">
+                        <img src={image} alt="Preview" className="w-full h-full object-cover" />
                       </div>
                     )}
                     <div>
@@ -239,16 +332,16 @@ export default function MenuManager() {
                         accept="image/*" 
                         className="hidden" 
                         ref={fileInputRef}
-                        onChange={handleImageUpload}
+                        onChange={handleFileChange}
                       />
                       <Button 
                         type="button" 
                         variant="outline" 
                         onClick={() => fileInputRef.current?.click()}
-                        disabled={uploading}
                       >
-                        {uploading ? "Uploading..." : image ? "Change Image" : "Upload Image"}
+                        {image ? "Change Image" : "Upload Image"}
                       </Button>
+                      <p className="text-white/40 text-xs mt-2">Images will be cropped to a 1:1 square.</p>
                     </div>
                   </div>
                 </div>
@@ -275,10 +368,10 @@ export default function MenuManager() {
                     value={category} onChange={e => setCategory(e.target.value)}
                     className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-(--color-accent)"
                   >
-                    <option value="Starters">Starters</option>
-                    <option value="Mains">Mains</option>
-                    <option value="Desserts">Desserts</option>
-                    <option value="Wine">Wine</option>
+                    <option value="Viennoiserie">Viennoiserie</option>
+                    <option value="Pâtisserie">Pâtisserie</option>
+                    <option value="Artisanal Bread">Artisanal Bread</option>
+                    <option value="Beverages">Beverages</option>
                   </select>
                 </div>
 
@@ -299,6 +392,45 @@ export default function MenuManager() {
           </div>
         </div>
       )}
+
+      {/* Cropper Modal */}
+      {showCropper && imgSrc && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="bg-[#1C1C1C] border border-white/10 rounded-lg w-full max-w-2xl">
+            <div className="p-4 border-b border-white/10 flex justify-between items-center">
+              <h2 className="text-xl text-white font-heading">Crop Image</h2>
+              <button onClick={() => setShowCropper(false)} className="text-white/50 hover:text-white">
+                <X size={24} />
+              </button>
+            </div>
+            <div className="p-6 flex justify-center max-h-[60vh] overflow-y-auto bg-black/50">
+              <ReactCrop
+                crop={crop}
+                onChange={(_, percentCrop) => setCrop(percentCrop)}
+                aspect={1}
+                className="max-w-full"
+              >
+                <img
+                  ref={imgRef}
+                  alt="Crop me"
+                  src={imgSrc}
+                  onLoad={onImageLoad}
+                  className="max-h-[50vh] w-auto"
+                />
+              </ReactCrop>
+            </div>
+            <div className="p-4 border-t border-white/10 flex justify-end gap-4">
+              <Button type="button" variant="outline" onClick={() => setShowCropper(false)}>
+                Cancel
+              </Button>
+              <Button type="button" variant="primary" onClick={handleUploadCrop} disabled={uploading}>
+                {uploading ? "Uploading..." : "Save Crop"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

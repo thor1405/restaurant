@@ -7,19 +7,19 @@ const REVIEWS = [
   {
     id: 1,
     name: "Eleanor R.",
-    text: "An absolute triumph of gastronomy. The tasting menu took us on a journey that we will not soon forget. The service was impeccable.",
+    text: "An absolute triumph of baking. The artisanal sourdough took us on a journey that we will not soon forget. The service was impeccable.",
     rating: 5,
   },
   {
     id: 2,
     name: "James T.",
-    text: "L'Étoile sets a new standard for fine dining in the city. The Wagyu was cooked to perfection and the wine pairing was flawless.",
+    text: "L'Étoile Pâtisserie sets a new standard for bakeries in the city. The croissants were baked to perfection and the coffee pairing was flawless.",
     rating: 5,
   },
   {
     id: 3,
     name: "Sophie M.",
-    text: "Every dish is a work of art. The atmosphere is luxurious yet welcoming. A truly magical evening from start to finish.",
+    text: "Every pastry is a work of art. The atmosphere is luxurious yet welcoming. A truly magical morning from start to finish.",
     rating: 5,
   }
 ];

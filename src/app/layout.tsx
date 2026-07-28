@@ -13,8 +13,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "L'Étoile | Luxury Fine Dining",
-  description: "Experience the pinnacle of culinary excellence at L'Étoile, a Michelin-star inspired luxury restaurant offering an unforgettable fine dining experience.",
+  title: "L'Étoile Pâtisserie | Luxury Bakery",
+  description: "Experience the pinnacle of artisanal baking at L'Étoile Pâtisserie, offering decadent pastries, artisanal bread, and an unforgettable culinary experience.",
 };
 
 export default function RootLayout({

@@ -34,7 +34,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-(--color-accent) uppercase tracking-[0.3em] text-sm md:text-base font-medium mb-6"
         >
-          A Michelin-Star Experience
+          An Artisanal Bakery Experience
         </motion.p>
         
         <motion.h1
@@ -44,7 +44,7 @@ export default function Hero() {
           className="font-heading text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-white mb-8 leading-tight"
         >
           Artistry in <br />
-          <span className="italic font-light text-white/90">Every Bite</span>
+          <span className="italic font-light text-white/90">Every Pastry</span>
         </motion.h1>
         
         <motion.div

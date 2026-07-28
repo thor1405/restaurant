@@ -22,7 +22,7 @@ export default function AboutPage() {
             transition={{ duration: 0.6 }}
             className="text-white/70 font-light leading-relaxed text-lg md:text-xl"
           >
-            Founded in 1998, L&apos;Étoile was born from a singular vision: to create a dining experience that transcends the ordinary. We believe that true luxury lies not just in the ingredients, but in the harmony of flavor, ambiance, and impeccable service.
+            Founded in 1998, L&apos;Étoile Pâtisserie was born from a singular vision: to create a bakery experience that transcends the ordinary. We believe that true luxury lies not just in the ingredients, but in the harmony of flavor, ambiance, and impeccable service.
           </motion.p>
         </div>
 
@@ -54,7 +54,7 @@ export default function AboutPage() {
               Our culinary philosophy is deeply rooted in respect for nature&apos;s bounty. We source only the finest, seasonal ingredients from sustainable purveyors, allowing their natural flavors to dictate our menu.
             </p>
             <p className="text-white/70 font-light leading-relaxed text-lg">
-              Every dish is a meticulous composition, a balance of texture, temperature, and taste designed to evoke emotion and create lasting memories.
+              Every pastry and loaf is a meticulous composition, a balance of texture, temperature, and taste designed to evoke emotion and create lasting memories.
             </p>
           </motion.div>
         </div>
@@ -84,10 +84,10 @@ export default function AboutPage() {
             <h3 className="font-heading text-3xl md:text-4xl text-white mb-6">The Ambiance</h3>
             <div className="h-[1px] w-16 bg-(--color-accent) mb-8" />
             <p className="text-white/70 font-light leading-relaxed mb-6 text-lg">
-              Designed by award-winning architects, our dining room reflects the elegance of our cuisine. The juxtaposition of stark black, warm gold, and intimate lighting creates a sanctuary from the bustling city outside.
+              Designed by award-winning architects, our pâtisserie lounge reflects the elegance of our creations. The juxtaposition of stark black, warm gold, and intimate lighting creates a sanctuary from the bustling city outside.
             </p>
             <p className="text-white/70 font-light leading-relaxed text-lg">
-              Whether you are seated in the main dining hall or our exclusive private room, the atmosphere is carefully curated to ensure your experience is nothing short of extraordinary.
+              Whether you are seated in the main lounge or our exclusive private tasting room, the atmosphere is carefully curated to ensure your experience is nothing short of extraordinary.
             </p>
           </motion.div>
         </div>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutDashboard, Menu as MenuIcon, CalendarCheck, Clock, LogOut } from "lucide-react";
+import { LayoutDashboard, Menu as MenuIcon, CalendarCheck, Clock, Settings as SettingsIcon, LogOut } from "lucide-react";
 
 export default function AdminLayout({
   children,
@@ -28,6 +28,7 @@ export default function AdminLayout({
     { name: "Menu Manager", href: "/admin/menu", icon: MenuIcon },
     { name: "Reservations", href: "/admin/reservations", icon: CalendarCheck },
     { name: "Slot Settings", href: "/admin/slots", icon: Clock },
+    { name: "Footer Settings", href: "/admin/settings", icon: SettingsIcon },
   ];
 
   return (
