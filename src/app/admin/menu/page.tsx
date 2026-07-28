@@ -232,19 +232,19 @@ export default function MenuManager() {
   return (
     <div className="p-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="font-heading text-3xl text-white">Menu Manager</h1>
+        <h1 className="font-heading text-3xl text-black">Menu Manager</h1>
         <Button variant="primary" onClick={() => handleOpenModal()}>
           <Plus size={18} className="mr-2" /> Add Item
         </Button>
       </div>
 
       {loading ? (
-        <div className="text-white">Loading menu...</div>
+        <div className="text-black">Loading menu...</div>
       ) : (
-        <div className="bg-[#1C1C1C] rounded-lg border border-white/10 overflow-hidden">
+        <div className="bg-white rounded-lg border border-black/10 overflow-hidden">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-black/50 border-b border-white/10 text-white/50 text-xs tracking-widest uppercase">
+              <tr className="bg-transparent border-b border-black/10 text-black/50 text-xs tracking-widest uppercase">
                 <th className="p-4 font-medium">Item</th>
                 <th className="p-4 font-medium">Category</th>
                 <th className="p-4 font-medium">Price</th>
@@ -253,7 +253,7 @@ export default function MenuManager() {
             </thead>
             <tbody>
               {items.map((item) => (
-                <tr key={item._id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                <tr key={item._id} className="border-b border-black/5 hover:bg-black/5 transition-colors">
                   <td className="p-4">
                     <div className="flex items-center gap-4">
                       {item.image ? (
@@ -262,23 +262,23 @@ export default function MenuManager() {
                           <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                         </div>
                       ) : (
-                        <div className="w-12 h-12 bg-white/10 rounded flex items-center justify-center">
-                          <ImageIcon size={20} className="text-white/30" />
+                        <div className="w-12 h-12 bg-black/10 rounded flex items-center justify-center">
+                          <ImageIcon size={20} className="text-black/30" />
                         </div>
                       )}
                       <div>
-                        <div className="text-white font-medium">{item.name}</div>
-                        <div className="text-white/50 text-sm truncate max-w-xs">{item.description}</div>
+                        <div className="text-black font-medium">{item.name}</div>
+                        <div className="text-black/50 text-sm truncate max-w-xs">{item.description}</div>
                       </div>
                     </div>
                   </td>
-                  <td className="p-4 text-white/70">{item.category}</td>
-                  <td className="p-4 text-white/70">{item.price}</td>
+                  <td className="p-4 text-black/70">{item.category}</td>
+                  <td className="p-4 text-black/70">{item.price}</td>
                   <td className="p-4 text-right">
                     <div className="flex justify-end gap-2">
                       <button 
                         onClick={() => handleOpenModal(item)}
-                        className="p-2 text-white/50 hover:text-white transition-colors bg-white/5 rounded"
+                        className="p-2 text-black/50 hover:text-black transition-colors bg-black/5 rounded"
                       >
                         <Edit size={16} />
                       </button>
@@ -294,7 +294,7 @@ export default function MenuManager() {
               ))}
               {items.length === 0 && (
                 <tr>
-                  <td colSpan={4} className="p-8 text-center text-white/50">
+                  <td colSpan={4} className="p-8 text-center text-black/50">
                     No menu items found. Click "Add Item" to create one.
                   </td>
                 </tr>
@@ -306,23 +306,23 @@ export default function MenuManager() {
 
       {/* Main Form Modal */}
       {isModalOpen && !showCropper && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-[#1C1C1C] border border-white/10 rounded-lg w-full max-w-xl max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-[#1C1C1C] border-b border-white/10 p-4 flex justify-between items-center z-10">
-              <h2 className="text-xl text-white font-heading">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/80 backdrop-blur-sm">
+          <div className="bg-white border border-black/10 rounded-lg w-full max-w-xl max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white border-b border-black/10 p-4 flex justify-between items-center z-10">
+              <h2 className="text-xl text-black font-heading">
                 {editingItem ? "Edit Menu Item" : "Add Menu Item"}
               </h2>
-              <button onClick={handleCloseModal} className="text-white/50 hover:text-white">
+              <button onClick={handleCloseModal} className="text-black/50 hover:text-black">
                 <X size={24} />
               </button>
             </div>
             <form onSubmit={handleSubmit} className="p-6 space-y-6">
               <div className="grid grid-cols-2 gap-6">
                 <div className="col-span-2">
-                  <label className="block text-white/70 text-xs tracking-widest uppercase mb-2">Image</label>
+                  <label className="block text-black/70 text-xs tracking-widest uppercase mb-2">Image</label>
                   <div className="flex items-center gap-4">
                     {image && (
-                      <div className="w-24 h-24 relative rounded overflow-hidden border border-white/20 flex-shrink-0">
+                      <div className="w-24 h-24 relative rounded overflow-hidden border border-black/20 flex-shrink-0">
                         <img src={image} alt="Preview" className="w-full h-full object-cover" />
                       </div>
                     )}
@@ -341,32 +341,32 @@ export default function MenuManager() {
                       >
                         {image ? "Change Image" : "Upload Image"}
                       </Button>
-                      <p className="text-white/40 text-xs mt-2">Images will be cropped to a 1:1 square.</p>
+                      <p className="text-black/40 text-xs mt-2">Images will be cropped to a 1:1 square.</p>
                     </div>
                   </div>
                 </div>
 
                 <div className="col-span-2 sm:col-span-1">
-                  <label className="block text-white/70 text-xs tracking-widest uppercase mb-2">Name</label>
+                  <label className="block text-black/70 text-xs tracking-widest uppercase mb-2">Name</label>
                   <input 
                     type="text" required value={name} onChange={e => setName(e.target.value)}
-                    className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-(--color-accent)"
+                    className="w-full bg-transparent border border-black/10 rounded p-3 text-black focus:outline-none focus:border-(--color-accent)"
                   />
                 </div>
                 
                 <div className="col-span-2 sm:col-span-1">
-                  <label className="block text-white/70 text-xs tracking-widest uppercase mb-2">Price (e.g. $24)</label>
+                  <label className="block text-black/70 text-xs tracking-widest uppercase mb-2">Price (e.g. $24)</label>
                   <input 
                     type="text" required value={price} onChange={e => setPrice(e.target.value)}
-                    className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-(--color-accent)"
+                    className="w-full bg-transparent border border-black/10 rounded p-3 text-black focus:outline-none focus:border-(--color-accent)"
                   />
                 </div>
 
                 <div className="col-span-2 sm:col-span-1">
-                  <label className="block text-white/70 text-xs tracking-widest uppercase mb-2">Category</label>
+                  <label className="block text-black/70 text-xs tracking-widest uppercase mb-2">Category</label>
                   <select 
                     value={category} onChange={e => setCategory(e.target.value)}
-                    className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-(--color-accent)"
+                    className="w-full bg-transparent border border-black/10 rounded p-3 text-black focus:outline-none focus:border-(--color-accent)"
                   >
                     <option value="Viennoiserie">Viennoiserie</option>
                     <option value="Pâtisserie">Pâtisserie</option>
@@ -376,15 +376,15 @@ export default function MenuManager() {
                 </div>
 
                 <div className="col-span-2">
-                  <label className="block text-white/70 text-xs tracking-widest uppercase mb-2">Description</label>
+                  <label className="block text-black/70 text-xs tracking-widest uppercase mb-2">Description</label>
                   <textarea 
                     required value={description} onChange={e => setDescription(e.target.value)} rows={3}
-                    className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-(--color-accent)"
+                    className="w-full bg-transparent border border-black/10 rounded p-3 text-black focus:outline-none focus:border-(--color-accent)"
                   />
                 </div>
               </div>
 
-              <div className="flex justify-end gap-4 pt-4 border-t border-white/10">
+              <div className="flex justify-end gap-4 pt-4 border-t border-black/10">
                 <Button type="button" variant="outline" onClick={handleCloseModal}>Cancel</Button>
                 <Button type="submit" variant="primary">Save Item</Button>
               </div>
@@ -395,15 +395,15 @@ export default function MenuManager() {
 
       {/* Cropper Modal */}
       {showCropper && imgSrc && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-[#1C1C1C] border border-white/10 rounded-lg w-full max-w-2xl">
-            <div className="p-4 border-b border-white/10 flex justify-between items-center">
-              <h2 className="text-xl text-white font-heading">Crop Image</h2>
-              <button onClick={() => setShowCropper(false)} className="text-white/50 hover:text-white">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/80 backdrop-blur-sm">
+          <div className="bg-white border border-black/10 rounded-lg w-full max-w-2xl">
+            <div className="p-4 border-b border-black/10 flex justify-between items-center">
+              <h2 className="text-xl text-black font-heading">Crop Image</h2>
+              <button onClick={() => setShowCropper(false)} className="text-black/50 hover:text-black">
                 <X size={24} />
               </button>
             </div>
-            <div className="p-6 flex justify-center max-h-[60vh] overflow-y-auto bg-black/50">
+            <div className="p-6 flex justify-center max-h-[60vh] overflow-y-auto bg-transparent">
               <ReactCrop
                 crop={crop}
                 onChange={(_, percentCrop) => setCrop(percentCrop)}
@@ -419,7 +419,7 @@ export default function MenuManager() {
                 />
               </ReactCrop>
             </div>
-            <div className="p-4 border-t border-white/10 flex justify-end gap-4">
+            <div className="p-4 border-t border-black/10 flex justify-end gap-4">
               <Button type="button" variant="outline" onClick={() => setShowCropper(false)}>
                 Cancel
               </Button>

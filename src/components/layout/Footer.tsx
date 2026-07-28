@@ -25,7 +25,7 @@ export default async function Footer() {
   }
 
   return (
-    <footer className="bg-[#0a0a0a] border-t border-white/10 pt-20 pb-10 text-white mt-auto">
+    <footer className="bg-[#FAFAFA] border-t border-black/10 pt-20 pb-10 text-black mt-auto">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
           {/* Brand */}
@@ -33,17 +33,17 @@ export default async function Footer() {
             <h3 className="font-heading text-2xl tracking-widest font-semibold mb-6">
               L&apos;ÉTOILE
             </h3>
-            <p className="text-white/60 mb-6 font-light leading-relaxed">
+            <p className="text-black/60 mb-6 font-light leading-relaxed">
               Experience the pinnacle of artisanal baking, where every creation tells a story of passion, precision, and artistry.
             </p>
             <div className="flex gap-4">
-              <a href={settings.igLink} className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors text-xs font-medium">
+              <a href={settings.igLink} className="w-10 h-10 rounded-full border border-black/20 flex items-center justify-center text-black/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors text-xs font-medium">
                 IG
               </a>
-              <a href={settings.fbLink} className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors text-xs font-medium">
+              <a href={settings.fbLink} className="w-10 h-10 rounded-full border border-black/20 flex items-center justify-center text-black/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors text-xs font-medium">
                 FB
               </a>
-              <a href={settings.xLink} className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors text-xs font-medium">
+              <a href={settings.xLink} className="w-10 h-10 rounded-full border border-black/20 flex items-center justify-center text-black/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors text-xs font-medium">
                 X
               </a>
             </div>
@@ -57,7 +57,7 @@ export default async function Footer() {
                 <li key={link}>
                   <Link
                     href={`/${link.toLowerCase().replace(' ', '-')}`}
-                    className="text-white/60 hover:text-(--color-accent) transition-colors font-light"
+                    className="text-black/60 hover:text-(--color-accent) transition-colors font-light"
                   >
                     {link}
                   </Link>
@@ -69,7 +69,7 @@ export default async function Footer() {
           {/* Contact */}
           <div className="flex flex-col">
             <h4 className="font-heading text-lg tracking-widest mb-6">CONTACT</h4>
-            <ul className="flex flex-col gap-4 text-white/60 font-light">
+            <ul className="flex flex-col gap-4 text-black/60 font-light">
               <li>{settings.addressLine1}</li>
               <li>{settings.addressLine2}</li>
               <li className="mt-2">
@@ -88,14 +88,14 @@ export default async function Footer() {
           {/* Newsletter */}
           <div className="flex flex-col">
             <h4 className="font-heading text-lg tracking-widest mb-6">NEWSLETTER</h4>
-            <p className="text-white/60 font-light mb-4">
+            <p className="text-black/60 font-light mb-4">
               Subscribe to receive updates on seasonal creations and exclusive events.
             </p>
             <form className="flex flex-col gap-3">
               <input
                 type="email"
                 placeholder="Email Address"
-                className="bg-transparent border border-white/20 px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-(--color-accent) transition-colors"
+                className="bg-transparent border border-black/20 px-4 py-3 text-black placeholder:text-black/40 focus:outline-none focus:border-(--color-accent) transition-colors"
                 required
               />
               <button
@@ -109,11 +109,11 @@ export default async function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-white/40 font-light">
+        <div className="pt-8 border-t border-black/10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-black/40 font-light">
           <p>&copy; {new Date().getFullYear()} L&apos;Étoile Pâtisserie. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/privacy" className="hover:text-black transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-black transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>

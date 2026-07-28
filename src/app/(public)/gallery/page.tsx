@@ -22,7 +22,7 @@ export default function GalleryPage() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   return (
-    <div className="pt-32 pb-24 bg-[#111111] min-h-screen">
+    <div className="pt-32 pb-24 bg-[#F5F5F5] min-h-screen">
       <div className="container mx-auto px-6">
         <SectionHeading 
           title="Gallery" 
@@ -50,8 +50,8 @@ export default function GalleryPage() {
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
               </div>
-              <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <span className="text-white tracking-widest uppercase text-sm border border-white px-4 py-2 backdrop-blur-sm">View</span>
+              <div className="absolute inset-0 bg-white/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <span className="text-black tracking-widest uppercase text-sm border border-white px-4 py-2 backdrop-blur-sm">View</span>
               </div>
             </motion.div>
           ))}
@@ -64,11 +64,11 @@ export default function GalleryPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4 md:p-12"
+              className="fixed inset-0 z-[100] flex items-center justify-center bg-white/95 backdrop-blur-xl p-4 md:p-12"
               onClick={() => setSelectedImage(null)}
             >
               <button 
-                className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors"
+                className="absolute top-6 right-6 text-black/70 hover:text-black transition-colors"
                 onClick={() => setSelectedImage(null)}
               >
                 <X size={32} />

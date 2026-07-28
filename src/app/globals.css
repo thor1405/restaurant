@@ -12,8 +12,8 @@
 }
 
 :root {
-  --background: #111111;
-  --foreground: #ffffff;
+  --background: #FAFAFA;
+  --foreground: #111111;
 }
 
 body {
@@ -32,10 +32,10 @@ html {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #111111;
+  background: #FAFAFA;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1C1C1C;
+  background: #E5E5E5;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -45,5 +45,5 @@ html {
 /* Selection */
 ::selection {
   background: #C8A45D;
-  color: #111111;
+  color: #FAFAFA;
 }

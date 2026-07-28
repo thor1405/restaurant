@@ -5,7 +5,7 @@ import Testimonials from "@/components/home/Testimonials";
 
 export default function Home() {
   return (
-    <main className="flex-grow flex flex-col bg-[#111111]">
+    <main className="flex-grow flex flex-col bg-[#F5F5F5]">
       <Hero />
       <SignatureDishes />
       <ChefSection />

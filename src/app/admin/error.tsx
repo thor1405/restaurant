@@ -14,9 +14,9 @@ export default function AdminError({
   }, [error]);
 
   return (
-    <div className="p-8 text-white">
+    <div className="p-8 text-black">
       <h1 className="text-2xl text-red-500 mb-4">Something went wrong in the Admin panel!</h1>
-      <pre className="bg-black/50 p-4 rounded overflow-auto text-sm border border-red-500/30 whitespace-pre-wrap">
+      <pre className="bg-transparent p-4 rounded overflow-auto text-sm border border-red-500/30 whitespace-pre-wrap">
         {error.message || "Unknown error"}
         <br />
         Digest: {error.digest || "None"}

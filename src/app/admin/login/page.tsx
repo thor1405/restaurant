@@ -39,11 +39,11 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-[#111111] flex flex-col items-center justify-center p-6">
-      <div className="w-full max-w-md bg-[#1C1C1C] rounded-lg p-8 md:p-10 border border-white/10 shadow-2xl">
+    <div className="min-h-screen bg-[#F5F5F5] flex flex-col items-center justify-center p-6">
+      <div className="w-full max-w-md bg-white rounded-lg p-8 md:p-10 border border-black/10 shadow-2xl">
         <div className="text-center mb-8">
-          <h1 className="font-heading text-3xl text-white tracking-widest mb-2">L'ÉTOILE</h1>
-          <p className="text-white/50 text-sm tracking-widest uppercase">Admin Portal</p>
+          <h1 className="font-heading text-3xl text-black tracking-widest mb-2">L'ÉTOILE</h1>
+          <p className="text-black/50 text-sm tracking-widest uppercase">Admin Portal</p>
         </div>
 
         {error && (
@@ -54,23 +54,23 @@ export default function AdminLogin() {
 
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
-            <label className="block text-white/70 text-sm tracking-widest uppercase mb-2">Username</label>
+            <label className="block text-black/70 text-sm tracking-widest uppercase mb-2">Username</label>
             <input 
               type="text" 
               required
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full bg-transparent border-b border-white/20 pb-2 text-white focus:outline-none focus:border-(--color-accent) transition-colors"
+              className="w-full bg-transparent border-b border-black/20 pb-2 text-black focus:outline-none focus:border-(--color-accent) transition-colors"
             />
           </div>
           <div>
-            <label className="block text-white/70 text-sm tracking-widest uppercase mb-2">Password</label>
+            <label className="block text-black/70 text-sm tracking-widest uppercase mb-2">Password</label>
             <input 
               type="password" 
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-transparent border-b border-white/20 pb-2 text-white focus:outline-none focus:border-(--color-accent) transition-colors"
+              className="w-full bg-transparent border-b border-black/20 pb-2 text-black focus:outline-none focus:border-(--color-accent) transition-colors"
             />
           </div>
           <div className="pt-4">
