@@ -3,6 +3,28 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import { Plus, Trash2, Image as ImageIcon, X } from "lucide-react";
+import ReactCrop, { type Crop, centerCrop, makeAspectCrop } from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
+
+function centerAspectCrop(
+  mediaWidth: number,
+  mediaHeight: number,
+  aspect: number,
+) {
+  return centerCrop(
+    makeAspectCrop(
+      {
+        unit: '%',
+        width: 90,
+      },
+      aspect,
+      mediaWidth,
+      mediaHeight,
+    ),
+    mediaWidth,
+    mediaHeight,
+  )
+}
 
 type GalleryItem = {
   _id: string;
@@ -17,6 +39,12 @@ export default function GalleryManager() {
   const [image, setImage] = useState("");
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Cropper State
+  const [imgSrc, setImgSrc] = useState("");
+  const [crop, setCrop] = useState<Crop>();
+  const [showCropper, setShowCropper] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   const fetchItems = async () => {
     try {
@@ -36,28 +64,92 @@ export default function GalleryManager() {
     fetchItems();
   }, []);
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      setUploading(true);
-      const formData = new FormData();
-      formData.append("file", e.target.files[0]);
+      setCrop(undefined); // Makes crop preview update between images.
+      const reader = new FileReader();
+      reader.addEventListener('load', () =>
+        setImgSrc(reader.result?.toString() || '')
+      );
+      reader.readAsDataURL(e.target.files[0]);
+      setShowCropper(true);
+    }
+    // reset input so the same file can be selected again
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
 
-      try {
-        const res = await fetch("/api/upload", {
-          method: "POST",
-          body: formData,
-        });
-        const data = await res.json();
-        if (data.success) {
-          setImage(data.imageUrl);
-        } else {
-          alert("Upload failed");
-        }
-      } catch (error) {
-        alert("Error uploading image");
-      } finally {
-        setUploading(false);
+  const onImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const { width, height } = e.currentTarget;
+    setCrop(centerAspectCrop(width, height, 1));
+  };
+
+  const getCroppedImg = async () => {
+    if (!imgRef.current || !crop) return;
+    
+    const canvas = document.createElement('canvas');
+    const scaleX = imgRef.current.naturalWidth / imgRef.current.width;
+    const scaleY = imgRef.current.naturalHeight / imgRef.current.height;
+    
+    const pixelRatio = window.devicePixelRatio;
+    
+    canvas.width = Math.floor(crop.width * scaleX * pixelRatio);
+    canvas.height = Math.floor(crop.height * scaleY * pixelRatio);
+    
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
+    ctx.scale(pixelRatio, pixelRatio);
+    ctx.imageSmoothingQuality = 'high';
+    
+    const cropX = crop.x * scaleX;
+    const cropY = crop.y * scaleY;
+    const cropWidth = crop.width * scaleX;
+    const cropHeight = crop.height * scaleY;
+
+    ctx.drawImage(
+      imgRef.current,
+      cropX,
+      cropY,
+      cropWidth,
+      cropHeight,
+      0,
+      0,
+      cropWidth,
+      cropHeight
+    );
+
+    return new Promise<Blob>((resolve) => {
+      canvas.toBlob((blob) => {
+        if (blob) resolve(blob);
+      }, 'image/jpeg', 0.95);
+    });
+  };
+
+  const handleUploadCrop = async () => {
+    const croppedBlob = await getCroppedImg();
+    if (!croppedBlob) return;
+
+    setUploading(true);
+    const formData = new FormData();
+    formData.append("file", croppedBlob, "cropped.jpg");
+
+    try {
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.success) {
+        setImage(data.imageUrl);
+        setShowCropper(false);
+        setImgSrc("");
+      } else {
+        alert("Upload failed");
       }
+    } catch (error) {
+      alert("Error uploading image");
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -138,7 +230,7 @@ export default function GalleryManager() {
         </div>
       )}
 
-      {isModalOpen && (
+      {isModalOpen && !showCropper && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
           <div className="bg-[#1C1C1C] border border-white/10 rounded-lg w-full max-w-md">
             <div className="p-4 border-b border-white/10 flex justify-between items-center">
@@ -183,6 +275,44 @@ export default function GalleryManager() {
                 <Button type="submit" variant="primary" disabled={!image || uploading}>Add to Gallery</Button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Cropper Modal */}
+      {showCropper && imgSrc && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="bg-[#1C1C1C] border border-white/10 rounded-lg w-full max-w-2xl">
+            <div className="p-4 border-b border-white/10 flex justify-between items-center">
+              <h2 className="text-xl text-white font-heading">Crop Image</h2>
+              <button onClick={() => setShowCropper(false)} className="text-white/50 hover:text-white">
+                <X size={24} />
+              </button>
+            </div>
+            <div className="p-6 flex justify-center max-h-[60vh] overflow-y-auto bg-black/50">
+              <ReactCrop
+                crop={crop}
+                onChange={(_, percentCrop) => setCrop(percentCrop)}
+                aspect={1}
+                className="max-w-full"
+              >
+                <img
+                  ref={imgRef}
+                  alt="Crop me"
+                  src={imgSrc}
+                  onLoad={onImageLoad}
+                  className="max-h-[50vh] w-auto"
+                />
+              </ReactCrop>
+            </div>
+            <div className="p-4 border-t border-white/10 flex justify-end gap-4">
+              <Button type="button" variant="outline" onClick={() => setShowCropper(false)}>
+                Cancel
+              </Button>
+              <Button type="button" variant="primary" onClick={handleUploadCrop} disabled={uploading}>
+                {uploading ? "Uploading..." : "Save Crop"}
+              </Button>
+            </div>
           </div>
         </div>
       )}

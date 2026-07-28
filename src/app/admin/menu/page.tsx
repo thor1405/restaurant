@@ -10,7 +10,6 @@ type MenuItem = {
   _id: string;
   name: string;
   description: string;
-  price: string;
   category: string;
   image: string;
 };
@@ -44,7 +43,6 @@ export default function MenuManager() {
   // Form State
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
   const [category, setCategory] = useState("Viennoiserie");
   const [image, setImage] = useState("");
   const [uploading, setUploading] = useState(false);
@@ -79,14 +77,12 @@ export default function MenuManager() {
       setEditingItem(item);
       setName(item.name);
       setDescription(item.description);
-      setPrice(item.price);
       setCategory(item.category);
       setImage(item.image);
     } else {
       setEditingItem(null);
       setName("");
       setDescription("");
-      setPrice("");
       setCategory("Viennoiserie");
       setImage("");
     }
@@ -191,7 +187,7 @@ export default function MenuManager() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const payload = { name, description, price, category, image };
+    const payload = { name, description, category, image };
     
     try {
       const url = editingItem ? `/api/menu/${editingItem._id}` : "/api/menu";
@@ -247,7 +243,6 @@ export default function MenuManager() {
               <tr className="bg-black/50 border-b border-white/10 text-white/50 text-xs tracking-widest uppercase">
                 <th className="p-4 font-medium">Item</th>
                 <th className="p-4 font-medium">Category</th>
-                <th className="p-4 font-medium">Price</th>
                 <th className="p-4 font-medium text-right">Actions</th>
               </tr>
             </thead>
@@ -273,7 +268,6 @@ export default function MenuManager() {
                     </div>
                   </td>
                   <td className="p-4 text-white/70">{item.category}</td>
-                  <td className="p-4 text-white/70">{item.price}</td>
                   <td className="p-4 text-right">
                     <div className="flex justify-end gap-2">
                       <button 
@@ -294,7 +288,7 @@ export default function MenuManager() {
               ))}
               {items.length === 0 && (
                 <tr>
-                  <td colSpan={4} className="p-8 text-center text-white/50">
+                  <td colSpan={3} className="p-8 text-center text-white/50">
                     No menu items found. Click "Add Item" to create one.
                   </td>
                 </tr>
@@ -354,15 +348,7 @@ export default function MenuManager() {
                   />
                 </div>
                 
-                <div className="col-span-2 sm:col-span-1">
-                  <label className="block text-white/70 text-xs tracking-widest uppercase mb-2">Price (e.g. $24)</label>
-                  <input 
-                    type="text" required value={price} onChange={e => setPrice(e.target.value)}
-                    className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-(--color-accent)"
-                  />
-                </div>
-
-                <div className="col-span-2 sm:col-span-1">
+                <div className="col-span-2">
                   <label className="block text-white/70 text-xs tracking-widest uppercase mb-2">Category</label>
                   <select 
                     value={category} onChange={e => setCategory(e.target.value)}

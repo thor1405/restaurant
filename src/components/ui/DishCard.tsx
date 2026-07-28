@@ -7,7 +7,6 @@ export interface Dish {
   id: string;
   name: string;
   description: string;
-  price: string;
   image: string;
   category?: string;
 }
@@ -38,7 +37,6 @@ export default function DishCard({ dish, index = 0 }: DishCardProps) {
       <div className="flex-grow flex flex-col justify-center h-full text-center sm:text-left">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-2">
           <h3 className="font-heading text-xl text-white tracking-wide">{dish.name}</h3>
-          <span className="text-(--color-accent) font-medium tracking-wider">{dish.price}</span>
         </div>
         <p className="text-white/60 font-light leading-relaxed text-sm max-w-xl">
           {dish.description}

@@ -27,7 +27,7 @@ export default function ContactPage() {
           subtitle="Get in Touch" 
         />
 
-        <div className="max-w-6xl mx-auto mt-16 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+        <div className="max-w-3xl mx-auto mt-16 grid grid-cols-1 gap-16">
           
           {/* Contact Information & Map */}
           <motion.div 
@@ -81,84 +81,6 @@ export default function ContactPage() {
               </div>
             </div>
           </motion.div>
-
-          {/* Contact Form */}
-          <motion.div 
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="bg-[#1C1C1C] rounded-lg p-8 md:p-12"
-          >
-            <h3 className="font-heading text-3xl text-white mb-8">Send a Message</h3>
-            
-            {isSubmitted ? (
-               <div className="text-center py-12">
-                  <div className="w-16 h-16 bg-(--color-accent)/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg className="w-8 h-8 text-(--color-accent)" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <h4 className="font-heading text-2xl text-white mb-4">Message Sent</h4>
-                  <p className="text-white/70 font-light mb-8">We have received your message and will get back to you shortly.</p>
-                  <Button variant="outline" onClick={() => setIsSubmitted(false)}>Send Another Message</Button>
-               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-8">
-                <div>
-                  <label htmlFor="contact-name" className="block text-white/70 text-sm tracking-widest uppercase mb-2">Full Name</label>
-                  <input 
-                    type="text" 
-                    id="contact-name"
-                    required
-                    className="w-full bg-transparent border-b border-white/20 pb-3 text-white focus:outline-none focus:border-(--color-accent) transition-colors"
-                    placeholder="John Doe"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="contact-email" className="block text-white/70 text-sm tracking-widest uppercase mb-2">Email Address</label>
-                  <input 
-                    type="email" 
-                    id="contact-email"
-                    required
-                    className="w-full bg-transparent border-b border-white/20 pb-3 text-white focus:outline-none focus:border-(--color-accent) transition-colors"
-                    placeholder="john@example.com"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="contact-subject" className="block text-white/70 text-sm tracking-widest uppercase mb-2">Subject</label>
-                  <input 
-                    type="text" 
-                    id="contact-subject"
-                    required
-                    className="w-full bg-transparent border-b border-white/20 pb-3 text-white focus:outline-none focus:border-(--color-accent) transition-colors"
-                    placeholder="How can we help?"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="contact-message" className="block text-white/70 text-sm tracking-widest uppercase mb-2">Message</label>
-                  <textarea 
-                    id="contact-message"
-                    required
-                    rows={5}
-                    className="w-full bg-transparent border-b border-white/20 pb-3 text-white focus:outline-none focus:border-(--color-accent) transition-colors resize-none"
-                    placeholder="Your message here..."
-                  ></textarea>
-                </div>
-                <div className="pt-4">
-                  <Button 
-                    type="submit" 
-                    variant="primary" 
-                    size="lg" 
-                    className="w-full"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                  </Button>
-                </div>
-              </form>
-            )}
-          </motion.div>
-
         </div>
       </div>
     </div>
