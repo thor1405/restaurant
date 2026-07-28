@@ -32,7 +32,7 @@ export default function SignatureDishes() {
   }, []);
 
   return (
-    <section className="py-24 bg-[#F5F5F5]">
+    <section className="py-24 bg-[#111111]">
       <div className="container mx-auto px-6">
         <SectionHeading 
           title="Signature Creations" 
@@ -40,7 +40,7 @@ export default function SignatureDishes() {
         />
         
         {loading ? (
-          <div className="text-center py-10 text-black/50">Loading signature dishes...</div>
+          <div className="text-center py-10 text-white/50">Loading signature dishes...</div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-16 mt-16">
             {dishes.map((dish, index) => (

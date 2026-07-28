@@ -32,7 +32,7 @@ const EVENTS = [
 
 export default function EventsPage() {
   return (
-    <div className="pt-32 pb-24 bg-[#F5F5F5] min-h-screen">
+    <div className="pt-32 pb-24 bg-[#111111] min-h-screen">
       <div className="container mx-auto px-6">
         <SectionHeading 
           title="Exclusive Events" 
@@ -63,10 +63,10 @@ export default function EventsPage() {
                 <span className="text-(--color-accent) font-medium tracking-widest text-sm uppercase mb-4">
                   {event.date}
                 </span>
-                <h3 className="font-heading text-3xl md:text-4xl text-black mb-6">
+                <h3 className="font-heading text-3xl md:text-4xl text-white mb-6">
                   {event.title}
                 </h3>
-                <p className="text-black/70 font-light leading-relaxed mb-8 text-lg">
+                <p className="text-white/70 font-light leading-relaxed mb-8 text-lg">
                   {event.description}
                 </p>
                 <div>
@@ -80,11 +80,11 @@ export default function EventsPage() {
         </div>
 
         {/* Private Dining Section */}
-        <div className="max-w-6xl mx-auto border-t border-black/10 pt-24">
-          <div className="bg-white rounded-lg p-8 md:p-16 flex flex-col items-center text-center">
-            <h3 className="font-heading text-3xl md:text-5xl text-black mb-6">Private Dining</h3>
+        <div className="max-w-6xl mx-auto border-t border-white/10 pt-24">
+          <div className="bg-[#1C1C1C] rounded-lg p-8 md:p-16 flex flex-col items-center text-center">
+            <h3 className="font-heading text-3xl md:text-5xl text-white mb-6">Private Dining</h3>
             <div className="h-[1px] w-24 bg-(--color-accent) mb-8" />
-            <p className="text-black/70 font-light leading-relaxed mb-10 text-lg max-w-2xl">
+            <p className="text-white/70 font-light leading-relaxed mb-10 text-lg max-w-2xl">
               For intimate gatherings, corporate events, or special celebrations, our exclusive private dining room offers a secluded sanctuary. Accommodating up to 20 guests, enjoy customized menus and a dedicated sommelier for an unforgettable evening.
             </p>
             <Link href="/contact">

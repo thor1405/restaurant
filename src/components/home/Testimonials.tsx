@@ -26,7 +26,7 @@ const REVIEWS = [
 
 export default function Testimonials() {
   return (
-    <section className="py-24 bg-[#F5F5F5] relative border-t border-black/5">
+    <section className="py-24 bg-[#111111] relative border-t border-white/5">
       <div className="container mx-auto px-6">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -35,7 +35,7 @@ export default function Testimonials() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl text-black mb-6">
+          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl text-white mb-6">
             Words from Our Guests
           </h2>
           <div className="h-[1px] w-24 bg-(--color-accent) mx-auto" />
@@ -49,17 +49,17 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="bg-white p-8 rounded-lg flex flex-col items-center text-center"
+              className="bg-[#1C1C1C] p-8 rounded-lg flex flex-col items-center text-center"
             >
               <div className="flex gap-1 text-(--color-accent) mb-6">
                 {[...Array(review.rating)].map((_, i) => (
                   <Star key={i} size={16} fill="currentColor" />
                 ))}
               </div>
-              <p className="text-black/80 font-light italic leading-relaxed mb-6 flex-grow">
+              <p className="text-white/80 font-light italic leading-relaxed mb-6 flex-grow">
                 "{review.text}"
               </p>
-              <span className="text-black font-medium tracking-widest text-sm uppercase">
+              <span className="text-white font-medium tracking-widest text-sm uppercase">
                 - {review.name}
               </span>
             </motion.div>

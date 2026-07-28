@@ -22,8 +22,8 @@ export default function Hero() {
           backgroundImage: "url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=2000')",
         }}
       >
-        <div className="absolute inset-0 bg-white/60" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAFA] via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent" />
       </div>
 
       {/* Content */}
@@ -41,10 +41,10 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="font-heading text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-black mb-8 leading-tight"
+          className="font-heading text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-white mb-8 leading-tight"
         >
           Artistry in <br />
-          <span className="italic font-light text-black/90">Every Pastry</span>
+          <span className="italic font-light text-white/90">Every Pastry</span>
         </motion.h1>
         
         <motion.div
@@ -72,7 +72,7 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 1 }}
         onClick={scrollToExplore}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-black/60 hover:text-(--color-accent) transition-colors flex flex-col items-center gap-2"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/60 hover:text-(--color-accent) transition-colors flex flex-col items-center gap-2"
       >
         <span className="uppercase tracking-[0.2em] text-xs">Scroll</span>
         <motion.div

@@ -19,7 +19,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               "bg-(--color-accent) text-black hover:bg-(--color-accent-hover) hover:shadow-[0_0_20px_rgba(200,164,93,0.3)]": variant === "primary",
               "bg-white text-black hover:bg-white/90": variant === "secondary",
               "border border-(--color-accent) text-(--color-accent) hover:bg-(--color-accent) hover:text-black": variant === "outline",
-              "text-black hover:text-(--color-accent)": variant === "ghost",
+              "text-white hover:text-(--color-accent)": variant === "ghost",
               "px-4 py-2 text-xs": size === "sm",
               "px-8 py-3 text-sm": size === "md",
               "px-10 py-4 text-base": size === "lg",

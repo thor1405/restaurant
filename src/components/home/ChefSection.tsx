@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function ChefSection() {
   return (
-    <section className="py-24 bg-[#FAFAFA] relative overflow-hidden">
+    <section className="py-24 bg-[#0a0a0a] relative overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
           <motion.div 
@@ -21,7 +21,7 @@ export default function ChefSection() {
               fill
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
           </motion.div>
 
           <motion.div 
@@ -34,18 +34,18 @@ export default function ChefSection() {
             <p className="text-(--color-accent) uppercase tracking-[0.3em] text-sm font-medium mb-4">
               The Visionary
             </p>
-            <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl text-black mb-8 leading-tight">
+            <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl text-white mb-8 leading-tight">
               Meet Head Pastry <br />
               Chef <span className="italic font-light">Antoine</span>
             </h2>
             <div className="h-[1px] w-24 bg-(--color-accent) mb-8 mx-auto lg:mx-0" />
-            <p className="text-black/70 font-light leading-relaxed mb-6 text-lg">
+            <p className="text-white/70 font-light leading-relaxed mb-6 text-lg">
               With over two decades of culinary mastery acquired in the world&apos;s most prestigious patisseries, Chef Antoine brings a unique philosophy to L&apos;Étoile Pâtisserie.
             </p>
-            <p className="text-black/70 font-light leading-relaxed mb-10 text-lg">
+            <p className="text-white/70 font-light leading-relaxed mb-10 text-lg">
               His approach blends classic French pastry techniques with avant-garde innovation, resulting in creations that respect tradition while daring to redefine the modern bakery experience.
             </p>
-            <div className="font-heading text-3xl text-black/50 italic">
+            <div className="font-heading text-3xl text-white/50 italic">
               "Antoine"
             </div>
           </motion.div>

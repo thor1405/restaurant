@@ -6,7 +6,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 
 export default function AboutPage() {
   return (
-    <div className="pt-32 pb-24 bg-[#F5F5F5] min-h-screen">
+    <div className="pt-32 pb-24 bg-[#111111] min-h-screen">
       <div className="container mx-auto px-6">
         <SectionHeading 
           title="Our Story" 
@@ -20,7 +20,7 @@ export default function AboutPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-black/70 font-light leading-relaxed text-lg md:text-xl"
+            className="text-white/70 font-light leading-relaxed text-lg md:text-xl"
           >
             Founded in 1998, L&apos;Étoile Pâtisserie was born from a singular vision: to create a bakery experience that transcends the ordinary. We believe that true luxury lies not just in the ingredients, but in the harmony of flavor, ambiance, and impeccable service.
           </motion.p>
@@ -48,12 +48,12 @@ export default function AboutPage() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h3 className="font-heading text-3xl md:text-4xl text-black mb-6">The Philosophy</h3>
+            <h3 className="font-heading text-3xl md:text-4xl text-white mb-6">The Philosophy</h3>
             <div className="h-[1px] w-16 bg-(--color-accent) mb-8" />
-            <p className="text-black/70 font-light leading-relaxed mb-6 text-lg">
+            <p className="text-white/70 font-light leading-relaxed mb-6 text-lg">
               Our culinary philosophy is deeply rooted in respect for nature&apos;s bounty. We source only the finest, seasonal ingredients from sustainable purveyors, allowing their natural flavors to dictate our menu.
             </p>
-            <p className="text-black/70 font-light leading-relaxed text-lg">
+            <p className="text-white/70 font-light leading-relaxed text-lg">
               Every pastry and loaf is a meticulous composition, a balance of texture, temperature, and taste designed to evoke emotion and create lasting memories.
             </p>
           </motion.div>
@@ -81,12 +81,12 @@ export default function AboutPage() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h3 className="font-heading text-3xl md:text-4xl text-black mb-6">The Ambiance</h3>
+            <h3 className="font-heading text-3xl md:text-4xl text-white mb-6">The Ambiance</h3>
             <div className="h-[1px] w-16 bg-(--color-accent) mb-8" />
-            <p className="text-black/70 font-light leading-relaxed mb-6 text-lg">
+            <p className="text-white/70 font-light leading-relaxed mb-6 text-lg">
               Designed by award-winning architects, our pâtisserie lounge reflects the elegance of our creations. The juxtaposition of stark black, warm gold, and intimate lighting creates a sanctuary from the bustling city outside.
             </p>
-            <p className="text-black/70 font-light leading-relaxed text-lg">
+            <p className="text-white/70 font-light leading-relaxed text-lg">
               Whether you are seated in the main lounge or our exclusive private tasting room, the atmosphere is carefully curated to ensure your experience is nothing short of extraordinary.
             </p>
           </motion.div>

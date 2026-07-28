@@ -24,7 +24,7 @@ export default function DishCard({ dish, index = 0 }: DishCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative flex flex-col sm:flex-row gap-6 items-center sm:items-start p-4 hover:bg-black/5 transition-colors duration-300 rounded-lg"
+      className="group relative flex flex-col sm:flex-row gap-6 items-center sm:items-start p-4 hover:bg-white/5 transition-colors duration-300 rounded-lg"
     >
       <div className="relative w-full sm:w-32 h-48 sm:h-32 rounded-lg overflow-hidden shrink-0">
         <Image
@@ -37,10 +37,10 @@ export default function DishCard({ dish, index = 0 }: DishCardProps) {
       </div>
       <div className="flex-grow flex flex-col justify-center h-full text-center sm:text-left">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-2">
-          <h3 className="font-heading text-xl text-black tracking-wide">{dish.name}</h3>
+          <h3 className="font-heading text-xl text-white tracking-wide">{dish.name}</h3>
           <span className="text-(--color-accent) font-medium tracking-wider">{dish.price}</span>
         </div>
-        <p className="text-black/60 font-light leading-relaxed text-sm max-w-xl">
+        <p className="text-white/60 font-light leading-relaxed text-sm max-w-xl">
           {dish.description}
         </p>
       </div>
