@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
+    "prebuild": "rm -rf src/app/about src/app/contact src/app/events src/app/gallery src/app/menu src/app/reservations src/app/page.tsx || true",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
