@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { MapPin, Phone, Mail, Clock, Instagram, Facebook, Twitter } from "lucide-react";
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { useEffect, useState } from "react";
 
 type SettingsData = {
@@ -110,14 +110,14 @@ export default function ContactPage() {
 
               {settings && (
                 <div className="mt-12 flex gap-4">
-                  <a href={getFormattedUrl(settings.igLink)} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors">
-                    <Instagram size={20} />
+                  <a href={getFormattedUrl(settings.igLink)} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors font-medium text-sm">
+                    IG
                   </a>
-                  <a href={getFormattedUrl(settings.fbLink)} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors">
-                    <Facebook size={20} />
+                  <a href={getFormattedUrl(settings.fbLink)} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors font-medium text-sm">
+                    FB
                   </a>
-                  <a href={getFormattedUrl(settings.xLink)} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors">
-                    <Twitter size={20} />
+                  <a href={getFormattedUrl(settings.xLink)} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors font-medium text-sm">
+                    X
                   </a>
                 </div>
               )}
