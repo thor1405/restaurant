@@ -88,7 +88,7 @@ export default function Navbar() {
             href="/reservations"
             className="px-6 py-2 border border-(--color-accent) text-(--color-accent) uppercase text-sm tracking-widest hover:bg-(--color-accent) hover:text-black transition-colors duration-300"
           >
-            Book a Table
+            Book a Consultation
           </Link>
         </div>
 
@@ -128,7 +128,7 @@ export default function Navbar() {
               href="/reservations"
               className="mt-6 px-6 py-4 text-center border border-(--color-accent) bg-(--color-accent)/10 text-(--color-accent) uppercase tracking-widest hover:bg-(--color-accent) hover:text-black transition-colors duration-300 rounded-sm"
             >
-              Book a Table
+              Book a Consultation
             </Link>
           </motion.nav>
         )}
