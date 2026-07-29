@@ -26,6 +26,14 @@ export default async function Footer() {
     };
   }
 
+  const getFormattedUrl = (url: string) => {
+    if (!url || url === '#') return '#';
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      return `https://${url}`;
+    }
+    return url;
+  };
+
   return (
     <footer className="bg-[#0a0a0a] border-t border-white/10 pt-20 pb-10 text-white mt-auto">
       <div className="container mx-auto px-6">
@@ -39,13 +47,13 @@ export default async function Footer() {
               Experience the pinnacle of artisanal baking, where every creation tells a story of passion, precision, and artistry.
             </p>
             <div className="flex gap-4">
-              <a href={settings.igLink} className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors text-xs font-medium">
+              <a href={getFormattedUrl(settings.igLink)} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors text-xs font-medium">
                 IG
               </a>
-              <a href={settings.fbLink} className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors text-xs font-medium">
+              <a href={getFormattedUrl(settings.fbLink)} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors text-xs font-medium">
                 FB
               </a>
-              <a href={settings.xLink} className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors text-xs font-medium">
+              <a href={getFormattedUrl(settings.xLink)} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors text-xs font-medium">
                 X
               </a>
             </div>

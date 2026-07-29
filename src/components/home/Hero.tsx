@@ -55,7 +55,7 @@ export default function Hero() {
         >
           <Link href="/reservations" className="w-full sm:w-auto">
             <Button variant="primary" size="lg" className="w-full sm:w-auto">
-              Reserve a Table
+              Book a Consultation
             </Button>
           </Link>
           <Link href="/menu" className="w-full sm:w-auto">

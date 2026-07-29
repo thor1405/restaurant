@@ -1,86 +1,146 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { Button } from "@/components/ui/Button";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Instagram, Facebook, Twitter } from "lucide-react";
+import { useEffect, useState } from "react";
+
+type SettingsData = {
+  phoneNumber: string;
+  email: string;
+  addressLine1: string;
+  addressLine2: string;
+  igLink: string;
+  fbLink: string;
+  xLink: string;
+};
 
 export default function ContactPage() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [settings, setSettings] = useState<SettingsData | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 1500);
+  useEffect(() => {
+    fetch("/api/settings")
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) setSettings(data.data);
+      })
+      .catch(console.error);
+  }, []);
+
+  const getFormattedUrl = (url: string) => {
+    if (!url || url === '#') return '#';
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      return `https://${url}`;
+    }
+    return url;
   };
+
+  const phone = settings?.phoneNumber || "+33 1 23 45 67 89";
+  const email = settings?.email || "contact@letoilepatisserie.com";
+  const address1 = settings?.addressLine1 || "123 Avenue des Champs-Élysées";
+  const address2 = settings?.addressLine2 || "75008 Paris, France";
 
   return (
     <div className="pt-32 pb-24 bg-[#111111] min-h-screen">
       <div className="container mx-auto px-6">
         <SectionHeading 
           title="Contact Us" 
-          subtitle="Get in Touch" 
+          subtitle="We Look Forward to Welcoming You" 
         />
 
-        <div className="max-w-3xl mx-auto mt-16 grid grid-cols-1 gap-16">
-          
-          {/* Contact Information & Map */}
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col gap-12"
-          >
-            <div>
-              <h3 className="font-heading text-3xl text-white mb-8">Location & Hours</h3>
-              <div className="space-y-6">
-                <div className="flex items-start gap-4 text-white/70">
-                  <MapPin className="text-(--color-accent) shrink-0 mt-1" size={24} />
+        <div className="max-w-6xl mx-auto mt-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
+            
+            {/* Contact Information */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="flex flex-col justify-center"
+            >
+              <h3 className="font-heading text-4xl text-white mb-10 leading-tight">
+                Visit Our <br /><span className="italic font-light text-(--color-accent)">Boutique</span>
+              </h3>
+              
+              <div className="space-y-8">
+                <div className="flex items-start gap-6 group">
+                  <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-[#1C1C1C] group-hover:border-(--color-accent) group-hover:bg-(--color-accent)/10 transition-colors shrink-0">
+                    <MapPin className="text-white/70 group-hover:text-(--color-accent) transition-colors" size={20} />
+                  </div>
                   <div>
-                    <p className="font-medium text-white text-lg mb-1">Address</p>
-                    <p className="font-light">123 Luxury Avenue<br />Paris, 75008, France</p>
+                    <p className="text-white font-medium tracking-widest uppercase text-sm mb-2">Location</p>
+                    <p className="text-white/60 font-light leading-relaxed">{address1}<br />{address2}</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-4 text-white/70">
-                  <Clock className="text-(--color-accent) shrink-0 mt-1" size={24} />
+                
+                <div className="flex items-start gap-6 group">
+                  <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-[#1C1C1C] group-hover:border-(--color-accent) group-hover:bg-(--color-accent)/10 transition-colors shrink-0">
+                    <Clock className="text-white/70 group-hover:text-(--color-accent) transition-colors" size={20} />
+                  </div>
                   <div>
-                    <p className="font-medium text-white text-lg mb-1">Opening Hours</p>
-                    <p className="font-light">Mon-Sun: 6:00 PM - 11:30 PM<br />(Last seating at 9:30 PM)</p>
+                    <p className="text-white font-medium tracking-widest uppercase text-sm mb-2">Opening Hours</p>
+                    <p className="text-white/60 font-light leading-relaxed">Tuesday - Sunday: 7:00 AM - 7:00 PM<br />Monday: Closed</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-4 text-white/70">
-                  <Phone className="text-(--color-accent) shrink-0 mt-1" size={24} />
-                  <div>
-                    <p className="font-medium text-white text-lg mb-1">Phone</p>
-                    <a href="tel:+33123456789" className="font-light hover:text-(--color-accent) transition-colors">+33 1 23 45 67 89</a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4 text-white/70">
-                  <Mail className="text-(--color-accent) shrink-0 mt-1" size={24} />
-                  <div>
-                    <p className="font-medium text-white text-lg mb-1">Email</p>
-                    <a href="mailto:contact@letoile.com" className="font-light hover:text-(--color-accent) transition-colors">contact@letoile.com</a>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            {/* Map Placeholder */}
-            <div className="w-full h-[300px] bg-[#1C1C1C] rounded-lg overflow-hidden relative group">
-              <div className="absolute inset-0 flex items-center justify-center bg-[#252525]">
-                 {/* Simulate a map with an abstract background or icon */}
-                 <div className="text-center text-white/40 flex flex-col items-center">
-                    <MapPin size={48} className="mb-4 opacity-50" />
-                    <p className="tracking-widest uppercase text-sm font-medium">Interactive Map view</p>
-                 </div>
+                <div className="flex items-start gap-6 group">
+                  <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-[#1C1C1C] group-hover:border-(--color-accent) group-hover:bg-(--color-accent)/10 transition-colors shrink-0">
+                    <Phone className="text-white/70 group-hover:text-(--color-accent) transition-colors" size={20} />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium tracking-widest uppercase text-sm mb-2">Phone</p>
+                    <a href={`tel:${phone.replace(/\s+/g, '')}`} className="text-white/60 font-light leading-relaxed hover:text-(--color-accent) transition-colors">
+                      {phone}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-6 group">
+                  <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-[#1C1C1C] group-hover:border-(--color-accent) group-hover:bg-(--color-accent)/10 transition-colors shrink-0">
+                    <Mail className="text-white/70 group-hover:text-(--color-accent) transition-colors" size={20} />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium tracking-widest uppercase text-sm mb-2">Email</p>
+                    <a href={`mailto:${email}`} className="text-white/60 font-light leading-relaxed hover:text-(--color-accent) transition-colors">
+                      {email}
+                    </a>
+                  </div>
+                </div>
               </div>
-            </div>
-          </motion.div>
+
+              {settings && (
+                <div className="mt-12 flex gap-4">
+                  <a href={getFormattedUrl(settings.igLink)} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors">
+                    <Instagram size={20} />
+                  </a>
+                  <a href={getFormattedUrl(settings.fbLink)} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors">
+                    <Facebook size={20} />
+                  </a>
+                  <a href={getFormattedUrl(settings.xLink)} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-(--color-accent) hover:border-(--color-accent) transition-colors">
+                    <Twitter size={20} />
+                  </a>
+                </div>
+              )}
+            </motion.div>
+
+            {/* Map Integration */}
+            <motion.div 
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-full h-[500px] lg:h-auto min-h-[500px] rounded-xl overflow-hidden border border-white/10 relative shadow-2xl shadow-black/50"
+            >
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.142047744348!2d2.292292615587254!3d48.86738580752495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66fd1e3c23e85%3A0xf63eb9b8f2d59105!2sChamps-%C3%89lys%C3%A9es%2C%20Paris%2C%20France!5e0!3m2!1sen!2sus!4v1714571830155!5m2!1sen!2sus" 
+                className="absolute inset-0 w-full h-full border-0"
+                allowFullScreen={true} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                style={{ filter: 'invert(90%) hue-rotate(180deg) brightness(85%) contrast(85%)' }}
+              ></iframe>
+            </motion.div>
+
+          </div>
         </div>
       </div>
     </div>

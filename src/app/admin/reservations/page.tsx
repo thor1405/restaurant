@@ -20,6 +20,8 @@ type Reservation = {
 export default function ReservationsManager() {
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [loading, setLoading] = useState(true);
+  const [filterDate, setFilterDate] = useState("");
+  const [filterTime, setFilterTime] = useState("");
 
   const fetchReservations = async () => {
     try {
@@ -62,10 +64,53 @@ export default function ReservationsManager() {
     }
   };
 
+  const filteredReservations = reservations.filter(res => {
+    let match = true;
+    if (filterDate) {
+      const resDate = new Date(res.date).toISOString().split('T')[0];
+      if (resDate !== filterDate) match = false;
+    }
+    if (filterTime && res.time !== filterTime) {
+      match = false;
+    }
+    return match;
+  });
+
   return (
     <div className="p-8">
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <h1 className="font-heading text-3xl text-white">Reservations</h1>
+        
+        <div className="flex flex-wrap gap-4">
+          <input
+            type="date"
+            value={filterDate}
+            onChange={(e) => setFilterDate(e.target.value)}
+            className="bg-[#1C1C1C] border border-white/10 rounded p-2 text-white focus:outline-none focus:border-(--color-accent) text-sm"
+          />
+          <select
+            value={filterTime}
+            onChange={(e) => setFilterTime(e.target.value)}
+            className="bg-[#1C1C1C] border border-white/10 rounded p-2 text-white focus:outline-none focus:border-(--color-accent) text-sm"
+          >
+            <option value="">All Times</option>
+            {Array.from({ length: 13 }, (_, i) => {
+              const hour = i + 10;
+              return [
+                <option key={`${hour}:00`} value={`${hour}:00`}>{`${hour}:00`}</option>,
+                <option key={`${hour}:30`} value={`${hour}:30`}>{`${hour}:30`}</option>
+              ];
+            })}
+          </select>
+          {(filterDate || filterTime) && (
+            <button 
+              onClick={() => { setFilterDate(""); setFilterTime(""); }}
+              className="text-white/50 hover:text-white text-sm px-2 transition-colors"
+            >
+              Clear Filters
+            </button>
+          )}
+        </div>
       </div>
 
       {loading ? (
@@ -83,7 +128,7 @@ export default function ReservationsManager() {
               </tr>
             </thead>
             <tbody>
-              {reservations.map((res) => (
+              {filteredReservations.map((res) => (
                 <tr key={res._id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
                   <td className="p-4">
                     <div className="text-white font-medium">{res.name}</div>
@@ -126,10 +171,10 @@ export default function ReservationsManager() {
                   </td>
                 </tr>
               ))}
-              {reservations.length === 0 && (
+              {filteredReservations.length === 0 && (
                 <tr>
                   <td colSpan={5} className="p-8 text-center text-white/50">
-                    No reservations found.
+                    No reservations found matching the filters.
                   </td>
                 </tr>
               )}
