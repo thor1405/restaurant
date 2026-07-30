@@ -6,7 +6,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import DishCard, { Dish } from "@/components/ui/DishCard";
 import { Search } from "lucide-react";
 
-const CATEGORIES = ["All", "Starters", "Mains", "Desserts", "Wine"];
+const CATEGORIES = ["All", "Viennoiserie", "Pâtisserie", "Artisanal Bread", "Beverages"];
 
 export default function MenuPage() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -47,8 +47,8 @@ export default function MenuPage() {
     <div className="pt-32 pb-24 bg-(--color-secondary) min-h-screen">
       <div className="container mx-auto px-6">
         <SectionHeading 
-          title="Our Menu" 
-          subtitle="Culinary Excellence" 
+          title="Our Bakery" 
+          subtitle="Artisanal Selection" 
         />
 
         {/* Filters and Search */}
@@ -75,7 +75,7 @@ export default function MenuPage() {
           <div className="relative w-full md:w-72">
             <input
               type="text"
-              placeholder="Search dishes..."
+              placeholder="Search cakes, pastries, breads..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-transparent border-b border-black/20 pb-2 pl-8 text-black placeholder:text-black/40 focus:outline-none focus:border-(--color-accent) transition-colors"
@@ -112,7 +112,7 @@ export default function MenuPage() {
                   exit={{ opacity: 0 }}
                   className="col-span-full text-center py-20 text-black/50"
                 >
-                  No dishes found matching your criteria.
+                  No items found matching your criteria.
                 </motion.div>
               )}
             </AnimatePresence>

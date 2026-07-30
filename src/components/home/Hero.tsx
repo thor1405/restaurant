@@ -22,7 +22,7 @@ export default function Hero() {
           backgroundImage: "url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=2000')",
         }}
       >
-        <div className="absolute inset-0 bg-white/40" />
+        <div className="absolute inset-0 bg-white/75" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#F7F5F2] via-transparent to-transparent" />
       </div>
 

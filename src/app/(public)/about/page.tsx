@@ -36,8 +36,8 @@ export default function AboutPage() {
             className="relative h-[600px] rounded-lg overflow-hidden"
           >
             <Image
-              src="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&q=80&w=1000"
-              alt="Restaurant Interior"
+              src="https://images.unsplash.com/photo-1555507036-ab1f4022115c?auto=format&fit=crop&q=80&w=1000"
+              alt="Artisanal Pastries"
               fill
               className="object-cover"
             />
@@ -51,7 +51,7 @@ export default function AboutPage() {
             <h3 className="font-heading text-3xl md:text-4xl text-black mb-6">The Philosophy</h3>
             <div className="h-[1px] w-16 bg-(--color-accent) mb-8" />
             <p className="text-black/70 font-light leading-relaxed mb-6 text-lg">
-              Our culinary philosophy is deeply rooted in respect for nature&apos;s bounty. We source only the finest, seasonal ingredients from sustainable purveyors, allowing their natural flavors to dictate our menu.
+              Our baking philosophy is deeply rooted in respect for nature&apos;s bounty. We source only the finest, seasonal ingredients from sustainable purveyors, allowing their natural flavors to dictate our creations.
             </p>
             <p className="text-black/70 font-light leading-relaxed text-lg">
               Every pastry and loaf is a meticulous composition, a balance of texture, temperature, and taste designed to evoke emotion and create lasting memories.
@@ -69,8 +69,8 @@ export default function AboutPage() {
             className="relative h-[600px] rounded-lg overflow-hidden"
           >
             <Image
-              src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=1000"
-              alt="Dining Experience"
+              src="https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?auto=format&fit=crop&q=80&w=1000"
+              alt="Bakery Interior"
               fill
               className="object-cover"
             />
@@ -84,7 +84,7 @@ export default function AboutPage() {
             <h3 className="font-heading text-3xl md:text-4xl text-black mb-6">The Ambiance</h3>
             <div className="h-[1px] w-16 bg-(--color-accent) mb-8" />
             <p className="text-black/70 font-light leading-relaxed mb-6 text-lg">
-              Designed by award-winning architects, our pâtisserie lounge reflects the elegance of our creations. The juxtaposition of stark black, warm gold, and intimate lighting creates a sanctuary from the bustling city outside.
+              Designed by award-winning architects, our pâtisserie lounge reflects the elegance of our creations. The juxtaposition of light cream, warm gold, and intimate lighting creates a sanctuary from the bustling city outside.
             </p>
             <p className="text-black/70 font-light leading-relaxed text-lg">
               Whether you are seated in the main lounge or our exclusive private tasting room, the atmosphere is carefully curated to ensure your experience is nothing short of extraordinary.

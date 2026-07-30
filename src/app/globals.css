@@ -18,6 +18,8 @@
 
 body {
   background-color: var(--background);
+  background-image: radial-gradient(rgba(200, 164, 93, 0.2) 1px, transparent 1px);
+  background-size: 24px 24px;
   color: var(--foreground);
   font-family: var(--font-body), sans-serif;
   overflow-x: hidden;

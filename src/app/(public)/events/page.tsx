@@ -81,20 +81,6 @@ export default function EventsPage() {
           )}
         </div>
 
-        {/* Private Dining Section */}
-        <div className="max-w-6xl mx-auto border-t border-black/10 pt-24">
-          <div className="bg-white rounded-lg p-8 md:p-16 flex flex-col items-center text-center">
-            <h3 className="font-heading text-3xl md:text-5xl text-black mb-6">Private Dining</h3>
-            <div className="h-[1px] w-24 bg-(--color-accent) mb-8" />
-            <p className="text-black/70 font-light leading-relaxed mb-10 text-lg max-w-2xl">
-              For intimate gatherings, corporate events, or special celebrations, our exclusive private dining room offers a secluded sanctuary. Accommodating up to 20 guests, enjoy customized menus and a dedicated sommelier for an unforgettable evening.
-            </p>
-            <Link href="/contact">
-              <Button variant="primary" size="lg">Inquire Now</Button>
-            </Link>
-          </div>
-        </div>
-
       </div>
     </div>
   );
