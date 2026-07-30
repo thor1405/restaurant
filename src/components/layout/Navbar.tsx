@@ -13,7 +13,6 @@ const NAV_LINKS = [
   { name: "About", href: "/about" },
   { name: "Gallery", href: "/gallery" },
   { name: "Events", href: "/events" },
-  { name: "Reservations", href: "/reservations" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -50,9 +49,9 @@ export default function Navbar() {
   return (
     <header
       className={clsx(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent",
+        "sticky top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent",
         {
-          "bg-black/90 backdrop-blur-md py-4 border-white/10": isScrolled || isMobileMenuOpen,
+          "bg-white/90 backdrop-blur-md py-4 border-black/10": isScrolled || isMobileMenuOpen,
           "bg-transparent py-6": !isScrolled && !isMobileMenuOpen,
         }
       )}
@@ -61,7 +60,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="text-2xl md:text-3xl font-heading font-semibold text-white tracking-wider flex-shrink-0"
+          className="text-2xl md:text-3xl font-heading font-semibold text-black tracking-wider flex-shrink-0"
         >
           L&apos;ÉTOILE
         </Link>
@@ -74,7 +73,7 @@ export default function Navbar() {
               href={link.href}
               className={clsx(
                 "text-sm tracking-widest uppercase transition-colors hover:text-(--color-accent)",
-                pathname === link.href ? "text-(--color-accent)" : "text-white/80"
+                pathname === link.href ? "text-(--color-accent)" : "text-black/80"
               )}
             >
               {link.name}
@@ -82,19 +81,13 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* CTA (Desktop) */}
+        {/* CTA (Desktop) removed */}
         <div className="hidden md:block">
-          <Link
-            href="/reservations"
-            className="px-6 py-2 border border-(--color-accent) text-(--color-accent) uppercase text-sm tracking-widest hover:bg-(--color-accent) hover:text-black transition-colors duration-300"
-          >
-            Book a Consultation
-          </Link>
         </div>
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden text-white p-2 focus:outline-none"
+          className="md:hidden text-black p-2 focus:outline-none"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
         >
@@ -110,26 +103,21 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden fixed top-[73px] left-0 right-0 h-[calc(100vh-73px)] bg-black/95 backdrop-blur-xl border-t border-white/10 p-6 flex flex-col gap-6 overflow-y-auto pb-24"
+            className="md:hidden fixed top-[73px] left-0 right-0 h-[calc(100vh-73px)] bg-white/95 backdrop-blur-xl border-t border-black/10 p-6 flex flex-col gap-6 overflow-y-auto pb-24"
           >
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 className={clsx(
-                  "text-xl tracking-widest uppercase transition-colors py-2 border-b border-white/10",
-                  pathname === link.href ? "text-(--color-accent)" : "text-white"
+                  "text-xl tracking-widest uppercase transition-colors py-2 border-b border-black/10",
+                  pathname === link.href ? "text-(--color-accent)" : "text-black"
                 )}
               >
                 {link.name}
               </Link>
             ))}
-            <Link
-              href="/reservations"
-              className="mt-6 px-6 py-4 text-center border border-(--color-accent) bg-(--color-accent)/10 text-(--color-accent) uppercase tracking-widest hover:bg-(--color-accent) hover:text-black transition-colors duration-300 rounded-sm"
-            >
-              Book a Consultation
-            </Link>
+
           </motion.nav>
         )}
       </AnimatePresence>

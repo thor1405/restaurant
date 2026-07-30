@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutDashboard, Menu as MenuIcon, CalendarCheck, Clock, Settings as SettingsIcon, LogOut, Image as ImageIcon } from "lucide-react";
+import { LayoutDashboard, Menu as MenuIcon, Settings as SettingsIcon, LogOut, Image as ImageIcon, Calendar as CalendarIcon } from "lucide-react";
 
 export default function AdminLayout({
   children,
@@ -27,17 +27,16 @@ export default function AdminLayout({
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { name: "Menu Manager", href: "/admin/menu", icon: MenuIcon },
     { name: "Gallery Manager", href: "/admin/gallery", icon: ImageIcon },
-    { name: "Reservations", href: "/admin/reservations", icon: CalendarCheck },
-    { name: "Slot Settings", href: "/admin/slots", icon: Clock },
+    { name: "Events Manager", href: "/admin/events", icon: CalendarIcon },
     { name: "Footer Settings", href: "/admin/settings", icon: SettingsIcon },
   ];
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex">
+    <div className="min-h-screen bg-[#E5E0D8] flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-[#111111] border-r border-white/5 flex flex-col">
-        <div className="h-20 flex items-center px-8 border-b border-white/5">
-          <Link href="/admin" className="font-heading text-xl text-white tracking-widest">
+      <aside className="w-64 bg-(--color-secondary) border-r border-black/5 flex flex-col">
+        <div className="h-20 flex items-center px-8 border-b border-black/5">
+          <Link href="/admin" className="font-heading text-xl text-black tracking-widest">
             L'ÉTOILE <span className="text-(--color-accent) text-sm ml-2">ADMIN</span>
           </Link>
         </div>
@@ -52,7 +51,7 @@ export default function AdminLayout({
                 className={`flex items-center gap-3 px-4 py-3 rounded-md transition-colors ${
                   isActive 
                     ? "bg-(--color-accent)/10 text-(--color-accent)" 
-                    : "text-white/60 hover:bg-white/5 hover:text-white"
+                    : "text-black/60 hover:bg-black/5 hover:text-black"
                 }`}
               >
                 <Icon size={18} />
@@ -61,10 +60,10 @@ export default function AdminLayout({
             );
           })}
         </nav>
-        <div className="p-4 border-t border-white/5">
+        <div className="p-4 border-t border-black/5">
           <button 
             onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 w-full rounded-md text-white/60 hover:bg-white/5 hover:text-white transition-colors"
+            className="flex items-center gap-3 px-4 py-3 w-full rounded-md text-black/60 hover:bg-black/5 hover:text-black transition-colors"
           >
             <LogOut size={18} />
             <span className="text-sm font-medium">Log out</span>

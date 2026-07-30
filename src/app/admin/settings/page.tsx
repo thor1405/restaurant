@@ -11,6 +11,8 @@ type SettingsData = {
   igLink: string;
   fbLink: string;
   xLink: string;
+  specialOfferActive: boolean;
+  specialOfferText: string;
 };
 
 export default function SettingsManager() {
@@ -37,9 +39,10 @@ export default function SettingsManager() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!settings) return;
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     setSettings({
       ...settings,
-      [e.target.name]: e.target.value,
+      [e.target.name]: value,
     });
   };
 
@@ -66,79 +69,104 @@ export default function SettingsManager() {
   };
 
   if (loading) {
-    return <div className="p-8 text-white">Loading settings...</div>;
+    return <div className="p-8 text-black">Loading settings...</div>;
   }
 
   if (!settings) {
-    return <div className="p-8 text-white">Error loading settings.</div>;
+    return <div className="p-8 text-black">Error loading settings.</div>;
   }
 
   return (
     <div className="p-8">
       <div className="mb-8">
-        <h1 className="font-heading text-3xl text-white">Footer Settings</h1>
-        <p className="text-white/50 mt-2">Manage the contact information and links displayed in the website footer.</p>
+        <h1 className="font-heading text-3xl text-black">Footer Settings</h1>
+        <p className="text-black/50 mt-2">Manage the contact information and links displayed in the website footer.</p>
       </div>
 
-      <div className="bg-[#1C1C1C] rounded-lg border border-white/10 p-6 max-w-2xl">
+      <div className="bg-white rounded-lg border border-black/10 p-6 max-w-2xl">
         <form onSubmit={handleSave} className="space-y-6">
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-white/70 text-xs tracking-widest uppercase mb-2">Phone Number</label>
+              <label className="block text-black/70 text-xs tracking-widest uppercase mb-2">Phone Number</label>
               <input 
                 type="text" name="phoneNumber" required value={settings.phoneNumber} onChange={handleChange}
-                className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-(--color-accent)"
+                className="w-full bg-[#F7F5F2] border border-black/10 rounded p-3 text-black focus:outline-none focus:border-(--color-accent)"
               />
             </div>
             <div>
-              <label className="block text-white/70 text-xs tracking-widest uppercase mb-2">Email Address</label>
+              <label className="block text-black/70 text-xs tracking-widest uppercase mb-2">Email Address</label>
               <input 
                 type="email" name="email" required value={settings.email} onChange={handleChange}
-                className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-(--color-accent)"
+                className="w-full bg-[#F7F5F2] border border-black/10 rounded p-3 text-black focus:outline-none focus:border-(--color-accent)"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-white/70 text-xs tracking-widest uppercase mb-2">Address Line 1</label>
+              <label className="block text-black/70 text-xs tracking-widest uppercase mb-2">Address Line 1</label>
               <input 
                 type="text" name="addressLine1" required value={settings.addressLine1} onChange={handleChange}
-                className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-(--color-accent)"
+                className="w-full bg-[#F7F5F2] border border-black/10 rounded p-3 text-black focus:outline-none focus:border-(--color-accent)"
               />
             </div>
             <div>
-              <label className="block text-white/70 text-xs tracking-widest uppercase mb-2">Address Line 2</label>
+              <label className="block text-black/70 text-xs tracking-widest uppercase mb-2">Address Line 2</label>
               <input 
                 type="text" name="addressLine2" required value={settings.addressLine2} onChange={handleChange}
-                className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-(--color-accent)"
+                className="w-full bg-[#F7F5F2] border border-black/10 rounded p-3 text-black focus:outline-none focus:border-(--color-accent)"
               />
             </div>
           </div>
 
-          <div className="pt-4 border-t border-white/10">
-            <h3 className="text-lg font-heading text-white mb-4">Social Links</h3>
+          <div className="pt-4 border-t border-black/10">
+            <h3 className="text-lg font-heading text-black mb-4">Social Links</h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-white/70 text-xs tracking-widest uppercase mb-2">Instagram URL</label>
+                <label className="block text-black/70 text-xs tracking-widest uppercase mb-2">Instagram URL</label>
                 <input 
                   type="text" name="igLink" value={settings.igLink} onChange={handleChange}
-                  className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-(--color-accent)"
+                  className="w-full bg-[#F7F5F2] border border-black/10 rounded p-3 text-black focus:outline-none focus:border-(--color-accent)"
                 />
               </div>
               <div>
-                <label className="block text-white/70 text-xs tracking-widest uppercase mb-2">Facebook URL</label>
+                <label className="block text-black/70 text-xs tracking-widest uppercase mb-2">Facebook URL</label>
                 <input 
                   type="text" name="fbLink" value={settings.fbLink} onChange={handleChange}
-                  className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-(--color-accent)"
+                  className="w-full bg-[#F7F5F2] border border-black/10 rounded p-3 text-black focus:outline-none focus:border-(--color-accent)"
                 />
               </div>
               <div>
-                <label className="block text-white/70 text-xs tracking-widest uppercase mb-2">X (Twitter) URL</label>
+                <label className="block text-black/70 text-xs tracking-widest uppercase mb-2">X (Twitter) URL</label>
                 <input 
                   type="text" name="xLink" value={settings.xLink} onChange={handleChange}
-                  className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-(--color-accent)"
+                  className="w-full bg-[#F7F5F2] border border-black/10 rounded p-3 text-black focus:outline-none focus:border-(--color-accent)"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-4 border-t border-black/10">
+            <h3 className="text-lg font-heading text-black mb-4">Special Offer Announcement</h3>
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <input 
+                  type="checkbox" 
+                  id="specialOfferActive"
+                  name="specialOfferActive"
+                  checked={settings.specialOfferActive} 
+                  onChange={handleChange}
+                  className="w-4 h-4 accent-(--color-accent)"
+                />
+                <label htmlFor="specialOfferActive" className="text-black/70 text-sm">Enable Special Offer Ribbon</label>
+              </div>
+              <div>
+                <label className="block text-black/70 text-xs tracking-widest uppercase mb-2">Offer Text</label>
+                <input 
+                  type="text" name="specialOfferText" value={settings.specialOfferText} onChange={handleChange}
+                  className="w-full bg-[#F7F5F2] border border-black/10 rounded p-3 text-black focus:outline-none focus:border-(--color-accent)"
+                  placeholder="e.g. Holiday Special: 20% off all pre-orders!"
                 />
               </div>
             </div>

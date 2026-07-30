@@ -44,7 +44,7 @@ export default function MenuPage() {
   }, [activeCategory, searchQuery, menuItems]);
 
   return (
-    <div className="pt-32 pb-24 bg-[#111111] min-h-screen">
+    <div className="pt-32 pb-24 bg-(--color-secondary) min-h-screen">
       <div className="container mx-auto px-6">
         <SectionHeading 
           title="Our Menu" 
@@ -63,7 +63,7 @@ export default function MenuPage() {
                 className={`uppercase tracking-widest text-sm py-2 px-4 transition-all duration-300 ${
                   activeCategory === category 
                     ? "text-(--color-accent) border-b border-(--color-accent)" 
-                    : "text-white/60 hover:text-white border-b border-transparent"
+                    : "text-black/60 hover:text-black border-b border-transparent"
                 }`}
               >
                 {category}
@@ -78,16 +78,16 @@ export default function MenuPage() {
               placeholder="Search dishes..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-transparent border-b border-white/20 pb-2 pl-8 text-white placeholder:text-white/40 focus:outline-none focus:border-(--color-accent) transition-colors"
+              className="w-full bg-transparent border-b border-black/20 pb-2 pl-8 text-black placeholder:text-black/40 focus:outline-none focus:border-(--color-accent) transition-colors"
             />
-            <Search className="absolute left-0 bottom-3 text-white/40" size={18} />
+            <Search className="absolute left-0 bottom-3 text-black/40" size={18} />
           </div>
         </div>
 
         {/* Menu Grid */}
         <div className="max-w-6xl mx-auto min-h-[400px]">
           {loading ? (
-            <div className="text-center py-20 text-white/50">Loading menu...</div>
+            <div className="text-center py-20 text-black/50">Loading menu...</div>
           ) : (
             <AnimatePresence mode="popLayout">
               {filteredItems.length > 0 ? (
@@ -110,7 +110,7 @@ export default function MenuPage() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="col-span-full text-center py-20 text-white/50"
+                  className="col-span-full text-center py-20 text-black/50"
                 >
                   No dishes found matching your criteria.
                 </motion.div>

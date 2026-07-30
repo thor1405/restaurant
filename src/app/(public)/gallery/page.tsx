@@ -33,7 +33,7 @@ export default function GalleryPage() {
   }, []);
 
   return (
-    <div className="pt-32 pb-24 bg-[#111111] min-h-screen">
+    <div className="pt-32 pb-24 bg-(--color-secondary) min-h-screen">
       <div className="container mx-auto px-6">
         <SectionHeading 
           title="Gallery" 
@@ -42,9 +42,9 @@ export default function GalleryPage() {
 
         {/* Masonry Grid */}
         {loading ? (
-          <div className="text-white/50 text-center mt-16">Loading gallery...</div>
+          <div className="text-black/50 text-center mt-16">Loading gallery...</div>
         ) : images.length === 0 ? (
-          <div className="text-white/50 text-center mt-16">The gallery is currently empty.</div>
+          <div className="text-black/50 text-center mt-16">The gallery is currently empty.</div>
         ) : (
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 mt-16 max-w-7xl mx-auto">
             {images.map((img, index) => (
@@ -65,7 +65,7 @@ export default function GalleryPage() {
                     />
                 </div>
                 <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <span className="text-white tracking-widest uppercase text-sm border border-white px-4 py-2 backdrop-blur-sm">View</span>
+                  <span className="text-black tracking-widest uppercase text-sm border border-white px-4 py-2 backdrop-blur-sm">View</span>
                 </div>
               </motion.div>
             ))}
@@ -79,11 +79,11 @@ export default function GalleryPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4 md:p-12"
+              className="fixed inset-0 z-[100] flex items-center justify-center bg-white/95 backdrop-blur-xl p-4 md:p-12"
               onClick={() => setSelectedImage(null)}
             >
               <button 
-                className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-50"
+                className="absolute top-6 right-6 text-black/70 hover:text-black transition-colors z-50"
                 onClick={() => setSelectedImage(null)}
               >
                 <X size={32} />

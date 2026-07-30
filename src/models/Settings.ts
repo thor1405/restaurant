@@ -29,6 +29,14 @@ const settingsSchema = new mongoose.Schema({
     type: String,
     default: "#",
   },
+  specialOfferActive: {
+    type: Boolean,
+    default: false,
+  },
+  specialOfferText: {
+    type: String,
+    default: "Holiday Special: 20% off all pre-orders!",
+  }
 });
 
 const Settings = mongoose.models.Settings || mongoose.model("Settings", settingsSchema);

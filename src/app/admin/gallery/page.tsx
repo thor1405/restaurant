@@ -197,25 +197,25 @@ export default function GalleryManager() {
   return (
     <div className="p-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="font-heading text-3xl text-white">Gallery Manager</h1>
+        <h1 className="font-heading text-3xl text-black">Gallery Manager</h1>
         <Button variant="primary" onClick={() => setIsModalOpen(true)}>
           <Plus size={18} className="mr-2" /> Add Image
         </Button>
       </div>
 
       {loading ? (
-        <div className="text-white">Loading gallery...</div>
+        <div className="text-black">Loading gallery...</div>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {items.map((item) => (
-            <div key={item._id} className="relative group bg-[#1C1C1C] rounded-lg overflow-hidden border border-white/10">
+            <div key={item._id} className="relative group bg-white rounded-lg overflow-hidden border border-black/10">
               <div className="relative w-full h-48">
                 <img src={item.imageUrl} alt="Gallery" className="w-full h-full object-cover" />
               </div>
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                 <button 
                   onClick={() => handleDelete(item._id)}
-                  className="bg-red-500/20 text-red-500 p-3 rounded-full hover:bg-red-500 hover:text-white transition-colors"
+                  className="bg-red-500/20 text-red-500 p-3 rounded-full hover:bg-red-500 hover:text-black transition-colors"
                 >
                   <Trash2 size={20} />
                 </button>
@@ -223,7 +223,7 @@ export default function GalleryManager() {
             </div>
           ))}
           {items.length === 0 && (
-            <div className="col-span-full p-8 text-center text-white/50 bg-[#1C1C1C] rounded-lg border border-white/10">
+            <div className="col-span-full p-8 text-center text-black/50 bg-white rounded-lg border border-black/10">
               No images in gallery. Click "Add Image" to upload some.
             </div>
           )}
@@ -231,25 +231,25 @@ export default function GalleryManager() {
       )}
 
       {isModalOpen && !showCropper && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-[#1C1C1C] border border-white/10 rounded-lg w-full max-w-md">
-            <div className="p-4 border-b border-white/10 flex justify-between items-center">
-              <h2 className="text-xl text-white font-heading">Add Gallery Image</h2>
-              <button onClick={() => { setIsModalOpen(false); setImage(""); }} className="text-white/50 hover:text-white">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/80 backdrop-blur-sm">
+          <div className="bg-white border border-black/10 rounded-lg w-full max-w-md">
+            <div className="p-4 border-b border-black/10 flex justify-between items-center">
+              <h2 className="text-xl text-black font-heading">Add Gallery Image</h2>
+              <button onClick={() => { setIsModalOpen(false); setImage(""); }} className="text-black/50 hover:text-black">
                 <X size={24} />
               </button>
             </div>
             <form onSubmit={handleSubmit} className="p-6 space-y-6">
               <div>
-                <label className="block text-white/70 text-xs tracking-widest uppercase mb-4">Image</label>
-                <div className="flex flex-col items-center justify-center border-2 border-dashed border-white/20 rounded-lg p-8">
+                <label className="block text-black/70 text-xs tracking-widest uppercase mb-4">Image</label>
+                <div className="flex flex-col items-center justify-center border-2 border-dashed border-black/20 rounded-lg p-8">
                   {image ? (
                     <div className="relative w-full h-48 mb-4">
                       <img src={image} alt="Preview" className="w-full h-full object-contain" />
                     </div>
                   ) : (
-                    <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-4">
-                      <ImageIcon size={32} className="text-white/30" />
+                    <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
+                      <ImageIcon size={32} className="text-black/30" />
                     </div>
                   )}
                   <input 
@@ -270,7 +270,7 @@ export default function GalleryManager() {
                 </div>
               </div>
 
-              <div className="flex justify-end gap-4 pt-4 border-t border-white/10">
+              <div className="flex justify-end gap-4 pt-4 border-t border-black/10">
                 <Button type="button" variant="outline" onClick={() => { setIsModalOpen(false); setImage(""); }}>Cancel</Button>
                 <Button type="submit" variant="primary" disabled={!image || uploading}>Add to Gallery</Button>
               </div>
@@ -281,15 +281,15 @@ export default function GalleryManager() {
 
       {/* Cropper Modal */}
       {showCropper && imgSrc && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-[#1C1C1C] border border-white/10 rounded-lg w-full max-w-2xl">
-            <div className="p-4 border-b border-white/10 flex justify-between items-center">
-              <h2 className="text-xl text-white font-heading">Crop Image</h2>
-              <button onClick={() => setShowCropper(false)} className="text-white/50 hover:text-white">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/80 backdrop-blur-sm">
+          <div className="bg-white border border-black/10 rounded-lg w-full max-w-2xl">
+            <div className="p-4 border-b border-black/10 flex justify-between items-center">
+              <h2 className="text-xl text-black font-heading">Crop Image</h2>
+              <button onClick={() => setShowCropper(false)} className="text-black/50 hover:text-black">
                 <X size={24} />
               </button>
             </div>
-            <div className="p-6 flex justify-center max-h-[60vh] overflow-y-auto bg-black/50">
+            <div className="p-6 flex justify-center max-h-[60vh] overflow-y-auto bg-[#F7F5F2]">
               <ReactCrop
                 crop={crop}
                 onChange={(c) => setCrop(c)}
@@ -305,7 +305,7 @@ export default function GalleryManager() {
                 />
               </ReactCrop>
             </div>
-            <div className="p-4 border-t border-white/10 flex justify-end gap-4">
+            <div className="p-4 border-t border-black/10 flex justify-end gap-4">
               <Button type="button" variant="outline" onClick={() => setShowCropper(false)}>
                 Cancel
               </Button>

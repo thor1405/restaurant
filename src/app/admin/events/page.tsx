@@ -6,12 +6,13 @@ import { Plus, Edit, Trash2, X, Image as ImageIcon } from "lucide-react";
 import ReactCrop, { type Crop, centerCrop, makeAspectCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 
-type MenuItem = {
+type EventItem = {
   _id: string;
-  name: string;
+  title: string;
   description: string;
-  category: string;
+  date: string;
   image: string;
+  isActive: boolean;
 };
 
 function centerAspectCrop(
@@ -34,17 +35,18 @@ function centerAspectCrop(
   )
 }
 
-export default function MenuManager() {
-  const [items, setItems] = useState<MenuItem[]>([]);
+export default function EventsManager() {
+  const [items, setItems] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
+  const [editingItem, setEditingItem] = useState<EventItem | null>(null);
   
   // Form State
-  const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("Viennoiserie");
+  const [date, setDate] = useState("");
   const [image, setImage] = useState("");
+  const [isActive, setIsActive] = useState(true);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -56,13 +58,13 @@ export default function MenuManager() {
 
   const fetchItems = async () => {
     try {
-      const res = await fetch("/api/menu");
+      const res = await fetch("/api/events");
       const data = await res.json();
       if (data.success) {
         setItems(data.data);
       }
     } catch (error) {
-      console.error("Failed to fetch menu items", error);
+      console.error("Failed to fetch events", error);
     } finally {
       setLoading(false);
     }
@@ -72,19 +74,21 @@ export default function MenuManager() {
     fetchItems();
   }, []);
 
-  const handleOpenModal = (item?: MenuItem) => {
+  const handleOpenModal = (item?: EventItem) => {
     if (item) {
       setEditingItem(item);
-      setName(item.name);
+      setTitle(item.title);
       setDescription(item.description);
-      setCategory(item.category);
+      setDate(item.date);
       setImage(item.image);
+      setIsActive(item.isActive);
     } else {
       setEditingItem(null);
-      setName("");
+      setTitle("");
       setDescription("");
-      setCategory("Viennoiserie");
+      setDate("");
       setImage("");
+      setIsActive(true);
     }
     setImgSrc("");
     setShowCropper(false);
@@ -98,7 +102,7 @@ export default function MenuManager() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      setCrop(undefined); // Makes crop preview update between images.
+      setCrop(undefined); 
       const reader = new FileReader();
       reader.addEventListener('load', () =>
         setImgSrc(reader.result?.toString() || '')
@@ -106,13 +110,12 @@ export default function MenuManager() {
       reader.readAsDataURL(e.target.files[0]);
       setShowCropper(true);
     }
-    // reset input so the same file can be selected again
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   const onImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
     const { width, height } = e.currentTarget;
-    setCrop(centerAspectCrop(width, height, 1));
+    setCrop(centerAspectCrop(width, height, 16/9)); // Events use 16:9 or similar wide aspect ratio
   };
 
   const getCroppedImg = async () => {
@@ -187,10 +190,10 @@ export default function MenuManager() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const payload = { name, description, category, image };
+    const payload = { title, description, date, image, isActive };
     
     try {
-      const url = editingItem ? `/api/menu/${editingItem._id}` : "/api/menu";
+      const url = editingItem ? `/api/events/${editingItem._id}` : "/api/events";
       const method = editingItem ? "PUT" : "POST";
       
       const res = await fetch(url, {
@@ -203,7 +206,7 @@ export default function MenuManager() {
         handleCloseModal();
         fetchItems();
       } else {
-        alert("Failed to save item");
+        alert("Failed to save event");
       }
     } catch (error) {
       alert("An error occurred");
@@ -211,38 +214,39 @@ export default function MenuManager() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this item?")) return;
+    if (!confirm("Are you sure you want to delete this event?")) return;
     
     try {
-      const res = await fetch(`/api/menu/${id}`, {
+      const res = await fetch(`/api/events/${id}`, {
         method: "DELETE",
       });
       if (res.ok) {
         fetchItems();
       }
     } catch (error) {
-      alert("Failed to delete item");
+      alert("Failed to delete event");
     }
   };
 
   return (
     <div className="p-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="font-heading text-3xl text-black">Menu Manager</h1>
+        <h1 className="font-heading text-3xl text-black">Events Manager</h1>
         <Button variant="primary" onClick={() => handleOpenModal()}>
-          <Plus size={18} className="mr-2" /> Add Item
+          <Plus size={18} className="mr-2" /> Add Event
         </Button>
       </div>
 
       {loading ? (
-        <div className="text-black">Loading menu...</div>
+        <div className="text-black">Loading events...</div>
       ) : (
         <div className="bg-white rounded-lg border border-black/10 overflow-hidden">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-[#F7F5F2] border-b border-black/10 text-black/50 text-xs tracking-widest uppercase">
-                <th className="p-4 font-medium">Item</th>
-                <th className="p-4 font-medium">Category</th>
+                <th className="p-4 font-medium">Event</th>
+                <th className="p-4 font-medium">Date/Time</th>
+                <th className="p-4 font-medium">Status</th>
                 <th className="p-4 font-medium text-right">Actions</th>
               </tr>
             </thead>
@@ -252,22 +256,26 @@ export default function MenuManager() {
                   <td className="p-4">
                     <div className="flex items-center gap-4">
                       {item.image ? (
-                        <div className="w-12 h-12 relative rounded overflow-hidden">
-                          {/* Use standard img tag to bypass Next.js image optimization bug on local files */}
-                          <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                        <div className="w-16 h-12 relative rounded overflow-hidden">
+                          <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                         </div>
                       ) : (
-                        <div className="w-12 h-12 bg-black/10 rounded flex items-center justify-center">
+                        <div className="w-16 h-12 bg-black/10 rounded flex items-center justify-center">
                           <ImageIcon size={20} className="text-black/30" />
                         </div>
                       )}
                       <div>
-                        <div className="text-black font-medium">{item.name}</div>
+                        <div className="text-black font-medium">{item.title}</div>
                         <div className="text-black/50 text-sm truncate max-w-xs">{item.description}</div>
                       </div>
                     </div>
                   </td>
-                  <td className="p-4 text-black/70">{item.category}</td>
+                  <td className="p-4 text-black/70">{item.date}</td>
+                  <td className="p-4">
+                    <span className={`px-2 py-1 text-xs rounded ${item.isActive ? 'bg-green-500/20 text-green-500' : 'bg-red-500/20 text-red-500'}`}>
+                      {item.isActive ? "Active" : "Inactive"}
+                    </span>
+                  </td>
                   <td className="p-4 text-right">
                     <div className="flex justify-end gap-2">
                       <button 
@@ -288,8 +296,8 @@ export default function MenuManager() {
               ))}
               {items.length === 0 && (
                 <tr>
-                  <td colSpan={3} className="p-8 text-center text-black/50">
-                    No menu items found. Click "Add Item" to create one.
+                  <td colSpan={4} className="p-8 text-center text-black/50">
+                    No events found. Click "Add Event" to create one.
                   </td>
                 </tr>
               )}
@@ -304,7 +312,7 @@ export default function MenuManager() {
           <div className="bg-white border border-black/10 rounded-lg w-full max-w-xl max-h-[90vh] overflow-y-auto">
             <div className="sticky top-0 bg-white border-b border-black/10 p-4 flex justify-between items-center z-10">
               <h2 className="text-xl text-black font-heading">
-                {editingItem ? "Edit Menu Item" : "Add Menu Item"}
+                {editingItem ? "Edit Event" : "Add Event"}
               </h2>
               <button onClick={handleCloseModal} className="text-black/50 hover:text-black">
                 <X size={24} />
@@ -316,7 +324,7 @@ export default function MenuManager() {
                   <label className="block text-black/70 text-xs tracking-widest uppercase mb-2">Image</label>
                   <div className="flex items-center gap-4">
                     {image && (
-                      <div className="w-24 h-24 relative rounded overflow-hidden border border-black/20 flex-shrink-0">
+                      <div className="w-32 h-18 relative rounded overflow-hidden border border-black/20 flex-shrink-0">
                         <img src={image} alt="Preview" className="w-full h-full object-cover" />
                       </div>
                     )}
@@ -335,30 +343,25 @@ export default function MenuManager() {
                       >
                         {image ? "Change Image" : "Upload Image"}
                       </Button>
-                      <p className="text-black/40 text-xs mt-2">Images will be cropped to a 1:1 square.</p>
+                      <p className="text-black/40 text-xs mt-2">Images will be cropped to a 16:9 ratio.</p>
                     </div>
                   </div>
                 </div>
 
                 <div className="col-span-2 sm:col-span-1">
-                  <label className="block text-black/70 text-xs tracking-widest uppercase mb-2">Name</label>
+                  <label className="block text-black/70 text-xs tracking-widest uppercase mb-2">Event Title</label>
                   <input 
-                    type="text" required value={name} onChange={e => setName(e.target.value)}
+                    type="text" required value={title} onChange={e => setTitle(e.target.value)}
                     className="w-full bg-[#F7F5F2] border border-black/10 rounded p-3 text-black focus:outline-none focus:border-(--color-accent)"
                   />
                 </div>
                 
-                <div className="col-span-2">
-                  <label className="block text-black/70 text-xs tracking-widest uppercase mb-2">Category</label>
-                  <select 
-                    value={category} onChange={e => setCategory(e.target.value)}
+                <div className="col-span-2 sm:col-span-1">
+                  <label className="block text-black/70 text-xs tracking-widest uppercase mb-2">Date/Time String</label>
+                  <input 
+                    type="text" required value={date} onChange={e => setDate(e.target.value)} placeholder="e.g. Every Thursday | 10:00 AM"
                     className="w-full bg-[#F7F5F2] border border-black/10 rounded p-3 text-black focus:outline-none focus:border-(--color-accent)"
-                  >
-                    <option value="Viennoiserie">Viennoiserie</option>
-                    <option value="Pâtisserie">Pâtisserie</option>
-                    <option value="Artisanal Bread">Artisanal Bread</option>
-                    <option value="Beverages">Beverages</option>
-                  </select>
+                  />
                 </div>
 
                 <div className="col-span-2">
@@ -368,11 +371,22 @@ export default function MenuManager() {
                     className="w-full bg-[#F7F5F2] border border-black/10 rounded p-3 text-black focus:outline-none focus:border-(--color-accent)"
                   />
                 </div>
+
+                <div className="col-span-2 flex items-center gap-2">
+                  <input 
+                    type="checkbox" 
+                    id="isActive"
+                    checked={isActive} 
+                    onChange={e => setIsActive(e.target.checked)}
+                    className="w-4 h-4 accent-(--color-accent)"
+                  />
+                  <label htmlFor="isActive" className="text-black/70 text-sm">Event is currently active and visible on website</label>
+                </div>
               </div>
 
               <div className="flex justify-end gap-4 pt-4 border-t border-black/10">
                 <Button type="button" variant="outline" onClick={handleCloseModal}>Cancel</Button>
-                <Button type="submit" variant="primary">Save Item</Button>
+                <Button type="submit" variant="primary">Save Event</Button>
               </div>
             </form>
           </div>
@@ -393,7 +407,7 @@ export default function MenuManager() {
               <ReactCrop
                 crop={crop}
                 onChange={(c) => setCrop(c)}
-                aspect={1}
+                aspect={16/9}
                 className="max-w-full"
               >
                 <img
